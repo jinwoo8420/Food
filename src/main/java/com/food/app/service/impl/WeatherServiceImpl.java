@@ -34,6 +34,8 @@ public class WeatherServiceImpl implements WeatherService {
 		
 		try {
 			weather_url += ("?" + URLEncoder.encode("serviceKey","UTF-8") + "=" + KeyConfig.KEY_1);
+			weather_url += ("&" + URLEncoder.encode("pageNo","UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /*페이지번호*/
+			weather_url += ("&" + URLEncoder.encode("numOfRows","UTF-8") + "=" + URLEncoder.encode("1000", "UTF-8")); /*한 페이지 결과 수*/
 			weather_url += ("?" + URLEncoder.encode("dataType","UTF-8") + "=" + URLEncoder.encode("JSON", "UTF-8"));
 			weather_url += ("&" + URLEncoder.encode("base_date","UTF-8") + "=" + URLEncoder.encode(dateForm.format(date), "UTF-8")); // 기준 날짜
 			weather_url += ("&" + URLEncoder.encode("base_time","UTF-8") + "=" + URLEncoder.encode("0800", "UTF-8")); // 기준 시간 (0200 부터 3시간 단위)
@@ -63,30 +65,21 @@ public class WeatherServiceImpl implements WeatherService {
 			rd.close();
 	        conn.disconnect();
         
-        //xml json으로 형변환
         JSONObject json = XML.toJSONObject(retString);
         String jsonStr = json.toString(4);
        
-        // JSONObject형식으로 지정
         JSONObject jObject = new JSONObject(jsonStr);
         
-        //response 안으로
         JSONObject response = jObject.getJSONObject("response");
         
-        // body 안으로
         JSONObject body = response.getJSONObject("body");
         
-        //items 안으로
         JSONObject items = body.getJSONObject("items");
         
-        //item은 배열로 생성
         JSONArray item = items.getJSONArray("item");
       
-        //json 배열을 List형으로 변형해서 VO에 저장
         Gson gson = new Gson();
         List<WeatherVO> list = gson.fromJson(item.toString(), new TypeToken<List<WeatherVO>>(){}.getType());
-        
-        //값 지정해서 출력 성공!
         
         return list;
 	}
