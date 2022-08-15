@@ -10,10 +10,25 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>hello</h1>
-	
-	<h3><a href="${rootPath}/weather/">날씨</a></h3>
-	<h3><a href="${rootPath}/dust/">미세먼지</a></h3>
+	<c:forEach items="${TEST}" var="test1">
 
+		<table>
+			<thead>
+				<tr>
+					<th>분류</th>
+					<th>예보날짜</th>
+					<th>예보시간</th>
+					<th>예보결과</th>
+				</tr>
+			</thead>
+
+			<tr>
+				<td>${test1.category}</td>
+				<td>${test1.fcstDate}</td>
+				<td>${test1.fcstTime}</td>
+				<td>${test1.fcstValue}</td>
+			</tr>
+		</table>
+	</c:forEach>
 </body>
 </html>

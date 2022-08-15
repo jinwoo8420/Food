@@ -13,13 +13,9 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @Builder
-public class WeatherVO {
-	private String fcstDate;
-	private String fcstTime;
-	private String category;
-	private String fcstValue;
-	private String baseDate;
-	private String baseTime;
-	private String nx;
-	private String ny;
+public class DustVO {
+	private String sidoName;
+	private String dataTime;
+	private String pm10Value;
+	private String pm25Value;
 }
