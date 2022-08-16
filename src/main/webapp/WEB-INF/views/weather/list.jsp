@@ -10,25 +10,74 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<c:forEach items="${TEST}" var="test1">
+	<table>
+		<c:set var="loop_flag" value="false" />
+		<c:forEach items="${TEST}" var="test1">
+			<c:if test="${not loop_flag }">
+				<c:if test="${test1.category eq 'SKY' || test1.category eq 'PTY'}">
+					<thead>
+						<tr>
+							<th>분류</th>
+							<th>예보날짜</th>
+							<th>예보시간</th>
+							<th>예보결과</th>
+						</tr>
+					</thead>
 
-		<table>
-			<thead>
-				<tr>
-					<th>분류</th>
-					<th>예보날짜</th>
-					<th>예보시간</th>
-					<th>예보결과</th>
-				</tr>
-			</thead>
+					<tr>
+						<c:if test="${test1.category eq 'SKY'}">
+							<td>날씨</td>
+						</c:if>
 
-			<tr>
-				<td>${test1.category}</td>
-				<td>${test1.fcstDate}</td>
-				<td>${test1.fcstTime}</td>
-				<td>${test1.fcstValue}</td>
-			</tr>
-		</table>
-	</c:forEach>
+						<c:if test="${test1.category eq 'PTY'}">
+							<td>강수형태</td>
+						</c:if>
+
+						<td>${test1.fcstDate}</td>
+						<td>${test1.fcstTime}</td>
+
+						<c:if test="${test1.category eq 'SKY' && test1.fcstValue eq '1'}">
+							<td>맑음</td>
+						</c:if>
+
+						<c:if test="${test1.category eq 'SKY' && test1.fcstValue eq '2'}">
+							<td>비</td>
+						</c:if>
+
+						<c:if test="${test1.category eq 'SKY' && test1.fcstValue eq '3'}">
+							<td>구름 많음</td>
+						</c:if>
+
+						<c:if test="${test1.category eq 'SKY' && test1.fcstValue eq '4'}">
+							<td>흐림</td>
+						</c:if>
+
+						<c:if test="${test1.category eq 'PTY' && test1.fcstValue eq '0'}">
+							<td>없음</td>
+						</c:if>
+
+						<c:if test="${test1.category eq 'PTY' && test1.fcstValue eq '1'}">
+							<td>비</td>
+						</c:if>
+
+						<c:if test="${test1.category eq 'PTY' && test1.fcstValue eq '2'}">
+							<td>비/눈</td>
+						</c:if>
+
+						<c:if test="${test1.category eq 'PTY' && test1.fcstValue eq '3'}">
+							<td>눈</td>
+						</c:if>
+
+						<c:if test="${test1.category eq 'PTY' && test1.fcstValue eq '4'}">
+							<td>소나기</td>
+						</c:if>
+					</tr>
+					<c:set var="loop_flag" value="true" />
+				</c:if>
+			</c:if>
+		</c:forEach>
+
+	</table>
+
 </body>
 </html>

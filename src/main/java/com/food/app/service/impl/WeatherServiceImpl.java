@@ -68,19 +68,19 @@ public class WeatherServiceImpl implements WeatherService {
 			time="2300";
 		}
 		
-		String[] weather_code= {"없음","비","비/눈","소나기","빗방울","빗방울/눈날림","눈날림"};
+		String[] weather_code= {"없음","비","비/눈","눈","소나기"};
 		
 		try {
 			weather_url += ("?" + URLEncoder.encode("serviceKey","UTF-8") + "=" + KeyConfig.KEY_1);
 			weather_url += ("&" + URLEncoder.encode("pageNo","UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /*페이지번호*/
-			weather_url += ("&" + URLEncoder.encode("numOfRows","UTF-8") + "=" + URLEncoder.encode("1000", "UTF-8")); /*한 페이지 결과 수*/
+			weather_url += ("&" + URLEncoder.encode("numOfRows","UTF-8") + "=" + URLEncoder.encode("290", "UTF-8")); /*한 페이지 결과 수*/
 			
 			if (nowTime.getHour( )== 00 || nowTime.getHour() == 01) {
-				weather_url +=("&" + URLEncoder.encode("base_date","UTF-8") + "=" + URLEncoder.encode(y_date, "UTF-8")); // 기준 날짜
+				weather_url +=("&" + URLEncoder.encode("base_date","UTF-8") + "=" + URLEncoder.encode(y_date, "UTF-8")); // 00시 / 01시 일 때 기준 날짜를 하루 전으로 설정
 			} else {
 				weather_url +=("&" + URLEncoder.encode("base_date","UTF-8") + "=" + URLEncoder.encode(dateForm.format(date), "UTF-8")); // 기준 날짜
-			}			
-			
+			}
+
 			weather_url += ("&" + URLEncoder.encode("base_time","UTF-8") + "=" + URLEncoder.encode(time, "UTF-8")); // 기준 시간 (0200 부터 3시간 단위)
 			weather_url += ("&" + URLEncoder.encode("nx","UTF-8") + "=" + URLEncoder.encode(mapX, "UTF-8")); // x 좌표
 			weather_url += ("&" + URLEncoder.encode("ny","UTF-8") + "=" + URLEncoder.encode(mapY, "UTF-8")); // y 좌표
@@ -119,6 +119,35 @@ public class WeatherServiceImpl implements WeatherService {
         JSONObject items = body.getJSONObject("items");
         
         JSONArray item = items.getJSONArray("item");
+        
+//        String weather = null;
+//        String tmperature = null;
+//        
+//        for(int i=0;i<item.length();i++){
+//        	JSONObject obj = item.getJSONObject(i);
+//        	
+//            String fcstValue = obj.getString("fcstValue");
+//            String category = obj.getString("category");
+//
+//            if(category.equals("SKY")){
+//                weather = "현재 날씨는 ";
+//                if(fcstValue.equals("1")) {
+//                    weather += "맑은 상태";
+//                }else if(fcstValue.equals("2")) {
+//                    weather += "비가 오는 상태 ";
+//                }else if(fcstValue.equals("3")) {
+//                    weather += "구름이 많은 상태 ";
+//                }else if(fcstValue.equals("4")) {
+//                    weather += "흐린 상태 ";
+//                }
+//            }
+//
+//            if(category.equals("TMP")){
+//                tmperature = "기온은 "+fcstValue+"℃ 입니다.";
+//            }
+//        }
+//        
+//        System.out.println(weather + tmperature);
       
         Gson gson = new Gson();
         List<WeatherVO> list = gson.fromJson(item.toString(), new TypeToken<List<WeatherVO>>(){}.getType());
