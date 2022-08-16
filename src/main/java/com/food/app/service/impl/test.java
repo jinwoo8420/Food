@@ -115,17 +115,15 @@ String weather_url = "http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/g
         JSONObject items = body.getJSONObject("items");
         
         JSONArray item = items.getJSONArray("item");
-        
-//        System.out.println(retString.toString());
       
         Gson gson = new Gson();
         List<WeatherVO> list = gson.fromJson(item.toString(), new TypeToken<List<WeatherVO>>(){}.getType());
         
+//      System.out.println(list);
+        
         System.out.println(dateForm.format(date));
         System.out.println(time);
         System.out.println();
-        
-//        System.out.println(list);
         
         String weather = null;
         String tmperature = null;
@@ -159,20 +157,20 @@ String weather_url = "http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/g
             if(category.equals("PTY")){
                 rain = "강수 형태 : ";
                 if(fcstValue.equals(0)) {
-                	rain += "없음";
+                	rain += weather_code[0];
                 }else if(fcstValue.equals(1)) {
-                	rain += "비";
+                	rain += weather_code[1];
                 }else if(fcstValue.equals(2)) {
-                	rain += "비/눈";
+                	rain += weather_code[2];
                 }else if(fcstValue.equals(3)) {
-                	rain += "눈";
+                	rain += weather_code[3];
                 }else if(fcstValue.equals(4)) {
-                	rain += "소나기";
+                	rain += weather_code[4];
                 }
             }
             
             if(category.equals("SKY")) {
-            	System.out.println(st_date + "\n" + st_time + "\n" + weather +"\n"+ tmperature);	
+            	System.out.println(st_date + "\n" + st_time + "\n" + weather +"\n"+ tmperature);
             }
             
             if (category.equals("PTY")) {

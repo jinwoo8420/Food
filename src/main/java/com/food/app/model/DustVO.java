@@ -18,4 +18,5 @@ public class DustVO {
 	private String dataTime;
 	private String pm10Value;
 	private String pm25Value;
+	private String stationName;
 }
