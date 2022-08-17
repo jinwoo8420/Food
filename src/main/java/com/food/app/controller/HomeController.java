@@ -25,9 +25,21 @@ public class HomeController {
 	private DustService dustService;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home() throws IOException {
+	public String home() {
 
 		return "home";
+	}
+	
+	@RequestMapping(value = "/intro", method = RequestMethod.GET)
+	public String intro() {
+
+		return "intro";
+	}
+
+	@RequestMapping(value = "/test", method = RequestMethod.GET)
+	public String test() {
+
+		return "test";
 	}
 
 	@RequestMapping(value = "/weather/", method = RequestMethod.GET)

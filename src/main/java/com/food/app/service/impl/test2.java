@@ -3,39 +3,128 @@ package com.food.app.service.impl;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.List;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.json.XML;
 
 import com.food.app.config.KeyConfig;
+import com.food.app.model.DustVO;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 public class test2 {
-    public static void main(String[] args) throws IOException {
-        StringBuilder urlBuilder = new StringBuilder("http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getCtprvnRltmMesureDnsty"); /*URL*/
-        urlBuilder.append("?" + URLEncoder.encode("serviceKey","UTF-8") + "=" + KeyConfig.KEY_1); /*Service Key*/
-        urlBuilder.append("&" + URLEncoder.encode("returnType","UTF-8") + "=" + URLEncoder.encode("xml", "UTF-8")); /*xml 또는 json*/
-        urlBuilder.append("&" + URLEncoder.encode("numOfRows","UTF-8") + "=" + URLEncoder.encode("100", "UTF-8")); /*한 페이지 결과 수*/
-        urlBuilder.append("&" + URLEncoder.encode("pageNo","UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /*페이지번호*/
-        urlBuilder.append("&" + URLEncoder.encode("sidoName","UTF-8") + "=" + URLEncoder.encode("서울", "UTF-8")); /*시도 이름(전국, 서울, 부산, 대구, 인천, 광주, 대전, 울산, 경기, 강원, 충북, 충남, 전북, 전남, 경북, 경남, 제주, 세종)*/
-        urlBuilder.append("&" + URLEncoder.encode("ver","UTF-8") + "=" + URLEncoder.encode("1.0", "UTF-8")); /*버전별 상세 결과 참고*/
-        URL url = new URL(urlBuilder.toString());
-        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-        conn.setRequestMethod("GET");
-        conn.setRequestProperty("Content-type", "application/json");
-        System.out.println("Response code: " + conn.getResponseCode());
-        BufferedReader rd;
-        if(conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
-            rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-        } else {
-            rd = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
-        }
-        StringBuilder sb = new StringBuilder();
-        String line;
-        while ((line = rd.readLine()) != null) {
-            sb.append(line);
-        }
-        rd.close();
-        conn.disconnect();
-        System.out.println(sb.toString());
-    }
+	public static void main(String[] args) throws IOException {
+		String dust_url = "http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getCtprvnRltmMesureDnsty"; // 호출 url
+		String encodeParams = null;
+
+		try {
+			encodeParams = "?" + URLEncoder.encode("serviceKey", "UTF-8");
+			encodeParams += "=" + KeyConfig.KEY_1;
+			encodeParams += "&" + URLEncoder.encode("returnType", "UTF-8");
+			encodeParams += "=xml";
+			encodeParams += "&" + URLEncoder.encode("numOfRows", "UTF-8");
+			encodeParams += "=10";
+			encodeParams += "&" + URLEncoder.encode("pageNo", "UTF-8");
+			encodeParams += "=1";
+			encodeParams += "&" + URLEncoder.encode("sidoName", "UTF-8");
+			encodeParams += "="+URLEncoder.encode("서울", "UTF-8");
+			encodeParams += "&" + URLEncoder.encode("ver", "UTF-8");
+			encodeParams += "=1.0";
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+
+		dust_url += encodeParams;
+
+		URL url = new URL(dust_url.toString());
+		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+		conn.setRequestMethod("GET");
+		conn.setRequestProperty("Content-type", "application/json");
+		System.out.println("Response code: " + conn.getResponseCode());
+		BufferedReader rd;
+		if (conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
+			rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+		} else {
+			rd = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+		}
+		String retString = "";
+		String line;
+		while ((line = rd.readLine()) != null) {
+			retString += line;
+		}
+		rd.close();
+		conn.disconnect();
+		
+//		System.out.println(dust_url);
+//		System.out.println(retString.toString());
+
+		JSONObject json = XML.toJSONObject(retString);
+		String jsonStr = json.toString(4);
+
+		JSONObject jObject = new JSONObject(jsonStr);
+
+		JSONObject response = jObject.getJSONObject("response");
+
+		JSONObject body = response.getJSONObject("body");
+
+		JSONObject items = body.getJSONObject("items");
+
+		JSONArray item = items.getJSONArray("item");
+
+//		for (int i = 0; i < item.length(); i++) {
+//			JSONObject obj = item.getJSONObject(i);
+//
+//			String stationName = obj.getString("stationName");
+//			Object pm10Value = obj.get("pm10Value");
+//			Object pm25Value = obj.get("pm25Value");
+//
+//			if (pm10Value.equals("-")) {
+////				dust.setPm10Grade("측정 결과 X");
+//				System.out.println(stationName);
+//				System.out.println("10 측정결과x");
+//			}
+//
+//			if (pm25Value.equals("-")) {
+////				dust.setPm25Grade("측정 결과 X");
+//				System.out.println(stationName);
+//				System.out.println("25 측정결과x");
+//			}
+//
+//			if (pm10Value <= 30) {
+//				dust.setPm10Grade("좋음");
+//			} else if (pm10Value <= 80 && pm10Value > 30) {
+//				dust.setPm10Grade("보통");
+//			} else if (pm10Value <= 150 && pm10Value > 80) {
+//				dust.setPm10Grade("나쁨");
+//			} else if (pm10Value > 150) {
+//				dust.setPm10Grade("매우 나쁨");
+//			}
+//
+//			if (pm25Value <= 15) {
+//				dust.setPm25Grade("좋음");
+//			} else if (pm25Value <= 35 && pm25Value > 15) {
+//				dust.setPm25Grade("보통");
+//			} else if (pm25Value <= 75 && pm25Value > 35) {
+//				dust.setPm25Grade("나쁨");
+//			} else if (pm25Value > 75) {
+//				dust.setPm25Grade("매우 나쁨");
+//			}
+//
+//			System.out.println(dust.getPm10Grade());
+//			System.out.println(dust.getPm25Grade());
+//
+//		}
+//
+		Gson gson = new Gson();
+		List<DustVO> list = gson.fromJson(item.toString(), new TypeToken<List<DustVO>>() {
+		}.getType());
+
+		System.out.println(list);
+	}
 }

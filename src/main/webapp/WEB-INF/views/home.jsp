@@ -8,12 +8,71 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Insert title here</title>
+<style>
+html::-webkit-scrollbar, ul::-webkit-scrollbar, div::-webkit-scrollbar {
+   width: 0.0em;
+   height: 0.0em;
+}
+
+html::-webkit-scrollbar-track, ul::-webkit-scrollbar-track, div::-webkit-scrollbar-track,
+   body::-webkit-scrollbar-track {
+   -webkit-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.2);
+}
+
+html::-webkit-scrollbar-thumb, ul::-webkit-scrollbar-thumb, div::-webkit-scrollbar-thumb,
+   body::-webkit-scrollbar-thumb {
+   background-color: #ddd;
+   outline: 0px solid slategrey;
+}
+
+.splash {
+   width: 100%;
+   height: 100vh;
+}
+
+.splash img {
+   position: absolute;
+   top: 40%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+}
+
+p {
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   font-size: 20px;
+   margin-top: 50px;
+}
+
+.img-responsive {
+   margin: 0 auto;
+}
+
+.d-flex {
+   display: -ms-flexbox !important;
+   display: flex !important;
+}
+
+.align-items-center {
+   -ms-flex-align: center !important;
+   align-items: center !important;
+}
+
+img {
+   width: 250px;
+}
+</style>
 </head>
 <body>
-	<h1>hello</h1>
-	
-	<h3><a href="${rootPath}/weather/">날씨</a></h3>
-	<h3><a href="${rootPath}/dust/">미세먼지</a></h3>
-
+   <div class="splash">
+      <div class="d-flex align-items-center">
+         <a href="${rootPath}/intro">
+            <img src="${rootPath}/static/img/main.png" class="img-responsive">
+         </a>
+         <p>오늘은 뭐먹지?</p>
+      </div>
+   </div>
 </body>
 </html>
