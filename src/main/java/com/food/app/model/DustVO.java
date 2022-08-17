@@ -19,6 +19,4 @@ public class DustVO {
 	private String pm10Value;
 	private String pm25Value;
 	private String stationName;
-	private String pm10Grade;
-	private String pm25Grade;
 }

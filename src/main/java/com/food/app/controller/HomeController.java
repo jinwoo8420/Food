@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -29,12 +30,30 @@ public class HomeController {
 
 		return "home";
 	}
-	
+
 	@RequestMapping(value = "/intro", method = RequestMethod.GET)
 	public String intro() {
 
 		return "intro";
 	}
+
+//	@RequestMapping(value = "/get/{mapX},{mapY}")
+//	public String list(@PathVariable("mapX") String mapX, @PathVariable("mapY") String mapY, Model model)
+//			throws IOException, ParseException {
+//
+//		return "detail/list";
+//	}
+
+//	@RequestMapping(value = "/get/{mapX}/{mapY}/{dust}/")
+//	public String seoul(@PathVariable("mapX") String mapX, @PathVariable("mapY") String mapY,
+//			@PathVariable("dust") String dust, Model model) throws IOException, ParseException {
+//
+//		List<WeatherVO> weather = weatherService.getWeather(mapX, mapY);
+//		
+//		model.addAttribute("WEATHER", weather);
+//
+//		return "/detail/list";
+//	}
 
 	@RequestMapping(value = "/test", method = RequestMethod.GET)
 	public String test() {

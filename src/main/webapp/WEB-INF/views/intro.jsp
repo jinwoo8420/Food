@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Insert title here</title>
 <style>
-html::-webkit-scrollbar, ul::-webkit-scrollbar, div::-webkit-scrollbar {
+/* html::-webkit-scrollbar, ul::-webkit-scrollbar, div::-webkit-scrollbar {
 	width: 0.0em;
 	height: 0.0em;
 }
@@ -23,8 +23,7 @@ html::-webkit-scrollbar-thumb, ul::-webkit-scrollbar-thumb, div::-webkit-scrollb
 	body::-webkit-scrollbar-thumb {
 	background-color: #ddd;
 	outline: 0px solid slategrey;
-}
-
+} */
 body {
 	font-family: 'NanumSquare', 'Malgun Gothic', '맑은 고딕', Helvetica, Arial,
 		sans-serif !important;
@@ -48,11 +47,6 @@ body {
 	margin: 0 auto;
 }
 
-.d-flex {
-	display: -ms-flexbox !important;
-	display: flex !important;
-}
-
 img {
 	width: 150px;
 	position: absolute;
@@ -61,26 +55,27 @@ img {
 	transform: translate(-50%, -50%);
 }
 
-.btn {
+div.btn {
 	position: absolute;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
+	z-index: 10;
 }
 
 hr {
 	border-bottom: 2px solid black;
 }
 
-button {
+button.btn {
 	padding: 10px 15px;
 	margin-right: 10px;
 	background-color: #95d9f9;
 	border: none;
-	border-radius: 5px
+	border-radius: 5px;
 }
 
-button:hover {
+button.btn:hover {
 	background-color: white;
 	border: 1px solid #95d9f9;
 }
@@ -102,57 +97,90 @@ button:hover {
 	transform: translate(-50%, -50%);
 }
 
-.btn {
-	z-index: 10;
+span.close {
+	border-radius: 20px;
+	cursor: default;
+}
+
+span.close:hover {
+	background-color: #dda8a8 !important;
 }
 </style>
+
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
 </head>
 <body>
 	<img src="${rootPath}/static/img/main.png" class="img-responsive">
 
 	<div class="btn">
-		<button class="open">광주</button>
-		<button class="open">서울</button>
-		<button class="open">제주</button>
-		<button class="open">부산</button>
-		<button class="open">대구</button>
+		<button class="open btn">광주</button>
+		<button class="open btn">서울</button>
+		<button class="open btn">제주</button>
+		<button class="open btn">부산</button>
+		<button class="open btn">대구</button>
 	</div>
 
 	<div class="list_group">
-		<button class="list_group_item">화정동</button>
-		<button class="list_group_item">동명동</button>
-		<button class="list_group_item">봉선동</button>
-		<button class="list_group_item">각화동</button>
-		<button class="list_group_item">풍암동</button>
+		<header class="w3-container w3-teal">
+			<div id="close_list">
+				<span class="close w3-button w3-display-topright" style="font-size: 20px"> &times; </span>
+			</div>
+		</header>
 
-		<div id="close_list">
-			<button type="button" class="close" type="button">&times;</button>
-		</div>
+		<button class="list_group_item btn" data-mapx="60" data-mapy="74" type="button">화정동</button>
+		<button class="list_group_item btn" data-mapx="60" data-mapy="74" type="button">동명동</button>
+		<!-- <button class="list_group_item btn" data-mapx="60" data-mapy="74" data-dust="광주">동명동</button> -->
+		<button class="list_group_item btn" data-mapx="60" data-mapy="74" type="button">봉선동</button>
+		<button class="list_group_item btn" data-mapx="60" data-mapy="74" type="button">각화동</button>
+		<button class="list_group_item btn" data-mapx="60" data-mapy="74" type="button">풍암동</button>
 	</div>
 
 	<script>
    const open = document.querySelector("button.open");
    const openAll = document.querySelectorAll(".open");
+   const close = document.querySelector("span.close");
+   const list = document.querySelector("div.list_group");
+   
+   close.disabled = true;
    
    open.addEventListener("click", () => {
-      document.querySelector("div.list_group").style.opacity = 1;
-      document.querySelector("div.list_group").style.zIndex = "20";
+      list.style.opacity = 1;
+      list.style.zIndex = "20";
+      close.disabled = false;
        
        for ( var i = 0; i < openAll.length; i++ ) {
           openAll[i].style.opacity = 0;
        }
      });
 
-   const close = document.querySelector("button.close");
-
    close.addEventListener("click", () => {
-       document.querySelector("div.list_group").style.opacity = 0;
-       document.querySelector("div.list_group").style.zIndex = "0";
+       list.style.opacity = 0;
+       list.style.zIndex = "0";
+       close.disabled = true;
        
        for ( var i = 0; i < openAll.length; i++ ) {
            openAll[i].style.opacity = 1;
        }
      });
    </script>
+
+	<script>
+   const div_menu = document.querySelector("div.list_group");
+
+   div_menu?.addEventListener("click", (e) => {
+     const button = e.target;
+     
+     if (button.tagName === "BUTTON") {
+       const mapx = button.dataset.mapx;
+       const mapy = button.dataset.mapy;
+       
+       console.log(mapx, mapy);
+       console.log(`${rootPath}/detail/${mapx},${mapy}/list`);
+       /* document.location.href = `${rootPath}/detail/${mapx},${mapy}/list`; */
+     }
+   });
+   </script>
+
 </body>
 </html>

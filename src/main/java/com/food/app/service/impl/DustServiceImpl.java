@@ -74,44 +74,6 @@ public class DustServiceImpl implements DustService {
 
 		JSONArray item = items.getJSONArray("item");
 
-//		DustVO dust = null;
-//
-//		for (int i = 0; i < item.length(); i++) {
-//			JSONObject obj = item.getJSONObject(i);
-//
-//			int pm10Value = obj.getInt("pm10Value");
-//			int pm25Value = obj.getInt("pm25Value");
-//
-//			if (pm10Value == '-') {
-//				dust.setPm10Grade("측정 결과 X");
-//			}
-//
-//			if (pm25Value == '-') {
-//				dust.setPm25Grade("측정 결과 X");
-//			}
-//
-//			if (pm10Value <= 30) {
-//				dust.setPm10Grade("좋음");
-//			} else if (pm10Value <= 80 && pm10Value > 30) {
-//				dust.setPm10Grade("보통");
-//			} else if (pm10Value <= 150 && pm10Value > 80) {
-//				dust.setPm10Grade("나쁨");
-//			} else if (pm10Value > 150) {
-//				dust.setPm10Grade("매우 나쁨");
-//			}
-//			
-//			if (pm25Value <= 15) {
-//				dust.setPm25Grade("좋음");
-//			} else if (pm25Value <= 35 && pm25Value > 15) {
-//				dust.setPm25Grade("보통");
-//			} else if (pm25Value <= 75 && pm25Value > 35) {
-//				dust.setPm25Grade("나쁨");
-//			} else if (pm25Value > 75) {
-//				dust.setPm25Grade("매우 나쁨");
-//			}
-//
-//		}
-
 		Gson gson = new Gson();
 		List<DustVO> list = gson.fromJson(item.toString(), new TypeToken<List<DustVO>>() {
 		}.getType());

@@ -33,7 +33,7 @@ public class test2 {
 			encodeParams += "&" + URLEncoder.encode("pageNo", "UTF-8");
 			encodeParams += "=1";
 			encodeParams += "&" + URLEncoder.encode("sidoName", "UTF-8");
-			encodeParams += "="+URLEncoder.encode("서울", "UTF-8");
+			encodeParams += "="+URLEncoder.encode("광주", "UTF-8");
 			encodeParams += "&" + URLEncoder.encode("ver", "UTF-8");
 			encodeParams += "=1.0";
 		} catch (UnsupportedEncodingException e) {
@@ -77,50 +77,6 @@ public class test2 {
 
 		JSONArray item = items.getJSONArray("item");
 
-//		for (int i = 0; i < item.length(); i++) {
-//			JSONObject obj = item.getJSONObject(i);
-//
-//			String stationName = obj.getString("stationName");
-//			Object pm10Value = obj.get("pm10Value");
-//			Object pm25Value = obj.get("pm25Value");
-//
-//			if (pm10Value.equals("-")) {
-////				dust.setPm10Grade("측정 결과 X");
-//				System.out.println(stationName);
-//				System.out.println("10 측정결과x");
-//			}
-//
-//			if (pm25Value.equals("-")) {
-////				dust.setPm25Grade("측정 결과 X");
-//				System.out.println(stationName);
-//				System.out.println("25 측정결과x");
-//			}
-//
-//			if (pm10Value <= 30) {
-//				dust.setPm10Grade("좋음");
-//			} else if (pm10Value <= 80 && pm10Value > 30) {
-//				dust.setPm10Grade("보통");
-//			} else if (pm10Value <= 150 && pm10Value > 80) {
-//				dust.setPm10Grade("나쁨");
-//			} else if (pm10Value > 150) {
-//				dust.setPm10Grade("매우 나쁨");
-//			}
-//
-//			if (pm25Value <= 15) {
-//				dust.setPm25Grade("좋음");
-//			} else if (pm25Value <= 35 && pm25Value > 15) {
-//				dust.setPm25Grade("보통");
-//			} else if (pm25Value <= 75 && pm25Value > 35) {
-//				dust.setPm25Grade("나쁨");
-//			} else if (pm25Value > 75) {
-//				dust.setPm25Grade("매우 나쁨");
-//			}
-//
-//			System.out.println(dust.getPm10Grade());
-//			System.out.println(dust.getPm25Grade());
-//
-//		}
-//
 		Gson gson = new Gson();
 		List<DustVO> list = gson.fromJson(item.toString(), new TypeToken<List<DustVO>>() {
 		}.getType());
