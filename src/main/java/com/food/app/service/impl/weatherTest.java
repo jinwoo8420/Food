@@ -26,7 +26,7 @@ import com.food.app.model.WeatherVO;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-public class test {
+public class weatherTest {
     public static void main(String[] args) throws IOException, ParseException, JSONException {
 String weather_url = "http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst"; // 호출 url
 		

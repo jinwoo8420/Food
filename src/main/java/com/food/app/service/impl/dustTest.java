@@ -18,7 +18,7 @@ import com.food.app.model.DustVO;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-public class test2 {
+public class dustTest {
 	public static void main(String[] args) throws IOException {
 		String dust_url = "http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getCtprvnRltmMesureDnsty"; // 호출 url
 		String encodeParams = null;

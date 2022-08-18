@@ -7,95 +7,134 @@
 <meta charset="UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
 <title>Insert title here</title>
+
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+<style>
+table {
+	text-align: center;
+}
+
+img {
+	width: 50px;
+}
+
+span.pm10 {
+	font-size: 5px;
+}
+</style>
+
 </head>
 <body>
-	<table>
-		<c:set var="loop_flag" value="false" />
-		<c:forEach items="${WEATHER}" var="test1">
-			<c:if test="${not loop_flag }">
-				<c:if test="${test1.category eq 'TMP' || test1.category eq 'SKY' || test1.category eq 'PTY'}">
+	<c:set var="loop_flag" value="false" />
+	<c:forEach items="${WEATHER}" var="weather_list">
+		<c:if test="${not loop_flag }">
+			<c:if test="${weather_list.category eq 'TMP'}">
+			현재기온 ${weather_list.fcstValue}℃
+			</c:if>
+			<c:set var="loop_flag" value="true" />
+		</c:if>
+	</c:forEach>
 
-					<thead>
-						<tr>
-							<th>분류</th>
-							<th>예보날짜</th>
-							<th>예보시간</th>
-							<th>예보결과</th>
-						</tr>
-					</thead>
+	<c:set var="loop_flag" value="false" />
+	<c:forEach items="${WEATHER}" var="weather_list">
+		<c:if test="${not loop_flag }">
+			<c:if test="${weather_list.category eq 'SKY'}">
+			날씨 
+				<c:if test="${weather_list.fcstValue eq '1'}">
+					맑음
+					<img src="${rootPath}/static/img/Sunny.png">
+				</c:if>
 
-					<tr>
-						<c:if test="${test1.category eq 'TMP'}">
-							<td>기온</td>
-						</c:if>
+				<c:if test="${weather_list.fcstValue eq '3'}">
+					구름 많음
+					<img src="${rootPath}/static/img/Cloud.png">
+				</c:if>
 
-						<c:if test="${test1.category eq 'SKY'}">
-							<td>날씨</td>
-						</c:if>
+				<c:if test="${weather_list.fcstValue eq '4'}">
+					흐림
+					<img src="${rootPath}/static/img/Cloudy.png">
+				</c:if>
+				<c:set var="loop_flag" value="true" />
+			</c:if>
+		</c:if>
+	</c:forEach>
 
-						<c:if test="${test1.category eq 'PTY'}">
-							<td>강수형태</td>
-						</c:if>
+	<c:set var="loop_flag" value="false" />
+	<c:forEach items="${WEATHER}" var="weather_list">
+		<c:if test="${not loop_flag }">
+			<c:if test="${weather_list.category eq 'PTY'}">
+			강수형태 
+				<c:if test="${weather_list.fcstValue eq '0'}">
+					없음
+				</c:if>
 
-						<td>${test1.fcstDate}</td>
-						<td>${test1.fcstTime}기준</td>
+				<c:if test="${weather_list.fcstValue eq '1'}">
+					비
+					<img src="${rootPath}/static/img/Rain.png">
+				</c:if>
 
-						<c:if test="${test1.category eq 'TMP'}">
-							<td>${test1.fcstValue}℃</td>
-						</c:if>
+				<c:if test="${weather_list.fcstValue eq '2'}">
+					비/눈
+					<img src="${rootPath}/static/img/Rain.png">
+					<img src="${rootPath}/static/img/Snow.png">
+				</c:if>
 
-						<c:if test="${test1.category eq 'SKY' && test1.fcstValue eq '1'}">
-							<td>맑음</td>
-						</c:if>
+				<c:if test="${weather_list.fcstValue eq '3'}">
+					눈
+					<img src="${rootPath}/static/img/Snow.png">
+				</c:if>
 
-						<c:if test="${test1.category eq 'SKY' && test1.fcstValue eq '2'}">
-							<td>비</td>
-						</c:if>
+				<c:if test="${weather_list.fcstValue eq '4'}">
+					소나기
+					<img src="${rootPath}/static/img/Rain.png">
+				</c:if>
+				<c:set var="loop_flag" value="true" />
+			</c:if>
+		</c:if>
+	</c:forEach>
 
-						<c:if test="${test1.category eq 'SKY' && test1.fcstValue eq '3'}">
-							<td>구름 많음</td>
-						</c:if>
+	<br>
 
-						<c:if test="${test1.category eq 'SKY' && test1.fcstValue eq '4'}">
-							<td>흐림</td>
-						</c:if>
+	<div>
+		<c:forEach items="${DUST}" var="dust_list">
+			<c:if test="${dust_list.stationName eq '운암동'}">
+					${dust_list.dataTime} / 미세먼지(PM10) 농도 : ${dust_list.pm10Value} / 미세먼지(PM2.5) 농도 :  ${dust_list.pm25Value}
+		</c:if>
+		</c:forEach>
 
-						<c:if test="${test1.category eq 'PTY' && test1.fcstValue eq '0'}">
-							<td>없음</td>
-							<c:set var="loop_flag" value="true" />
-						</c:if>
+		<br> <span class="pm10">* pm10 기준 ~ 30 좋음 / 31 ~ 80 보통 / 81 ~ 150 나쁨 / 151 ~ 매우 나쁨</span> <br> <span class="pm10">* pm2.5 기준 ~ 15 좋음 / 16 ~ 35 보통 / 36 ~ 75 나쁨 / 76 ~ 매우 나쁨</span>
+	</div>
 
-						<c:if test="${test1.category eq 'PTY' && test1.fcstValue eq '1'}">
-							<td>비</td>
-							<c:set var="loop_flag" value="true" />
-						</c:if>
+	<div class="food_list">
+		<h3>음식 : ${FOOD}</h3>
 
-						<c:if test="${test1.category eq 'PTY' && test1.fcstValue eq '2'}">
-							<td>비/눈</td>
-							<c:set var="loop_flag" value="true" />
-						</c:if>
+		<br>
 
-						<c:if test="${test1.category eq 'PTY' && test1.fcstValue eq '3'}">
-							<td>눈</td>
-							<c:set var="loop_flag" value="true" />
-						</c:if>
+		<c:forEach items="${NAVER}" var="list">
+			<div>
+				<p>
+					이름 : <b>${list.title}</b>
+				</p>
 
-						<c:if test="${test1.category eq 'PTY' && test1.fcstValue eq '4'}">
-							<td>소나기</td>
-							<c:set var="loop_flag" value="true" />
-						</c:if>
+				<c:if test="${empty list.link}">
+					<p>홈페이지 : 제공된 주소가 없습니다</p>
+				</c:if>
 
-					</tr>
+				<c:if test="${not empty list.link}">
+					<p>홈페이지 : ${list.link}</p>
 
 				</c:if>
 
-			</c:if>
+				<p>주소 : ${list.address}</p>
+				<p>도로명 주소 : ${list.roadAddress}</p>
+				<br>
+			</div>
 
 		</c:forEach>
-
-	</table>
-
+	</div>
 
 </body>
 </html>

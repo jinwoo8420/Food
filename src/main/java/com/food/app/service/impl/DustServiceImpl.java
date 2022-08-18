@@ -25,22 +25,28 @@ public class DustServiceImpl implements DustService {
 
 	@Override
 	public List<DustVO> getDust(String name) throws IOException {
+
 		String dust_url = "http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getCtprvnRltmMesureDnsty"; // 호출 url
+		String encodeParams = null;
 
 		try {
-			dust_url += ("?" + URLEncoder.encode("serviceKey", "UTF-8") + "=" + KeyConfig.KEY_1); /*Service Key*/
-			dust_url += ("&" + URLEncoder.encode("returnType", "UTF-8") + "="
-					+ URLEncoder.encode("xml", "UTF-8")); /*xml 또는 json*/
-			dust_url += ("&" + URLEncoder.encode("numOfRows", "UTF-8") + "="
-					+ URLEncoder.encode("100", "UTF-8")); /*한 페이지 결과 수*/
-			dust_url += ("&" + URLEncoder.encode("pageNo", "UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /*페이지번호*/
-			dust_url += ("&" + URLEncoder.encode("sidoName", "UTF-8") + "=" + URLEncoder.encode(name,
-					"UTF-8")); /*시도 이름(전국, 서울, 부산, 대구, 인천, 광주, 대전, 울산, 경기, 강원, 충북, 충남, 전북, 전남, 경북, 경남, 제주, 세종)*/
-			dust_url += ("&" + URLEncoder.encode("ver", "UTF-8") + "="
-					+ URLEncoder.encode("1.0", "UTF-8")); /*버전별 상세 결과 참고*/
+			encodeParams = "?" + URLEncoder.encode("serviceKey", "UTF-8");
+			encodeParams += "=" + KeyConfig.KEY_1;
+			encodeParams += "&" + URLEncoder.encode("returnType", "UTF-8");
+			encodeParams += "=xml";
+			encodeParams += "&" + URLEncoder.encode("numOfRows", "UTF-8");
+			encodeParams += "=10";
+			encodeParams += "&" + URLEncoder.encode("pageNo", "UTF-8");
+			encodeParams += "=1";
+			encodeParams += "&" + URLEncoder.encode("sidoName", "UTF-8");
+			encodeParams += "=" + URLEncoder.encode("광주", "UTF-8");
+			encodeParams += "&" + URLEncoder.encode("ver", "UTF-8");
+			encodeParams += "=1.0";
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
+
+		dust_url += encodeParams;
 
 		URL url = new URL(dust_url.toString());
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();

@@ -9,25 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Insert title here</title>
 <style>
-/* html::-webkit-scrollbar, ul::-webkit-scrollbar, div::-webkit-scrollbar {
-	width: 0.0em;
-	height: 0.0em;
-}
-
-html::-webkit-scrollbar-track, ul::-webkit-scrollbar-track, div::-webkit-scrollbar-track,
-	body::-webkit-scrollbar-track {
-	-webkit-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.2);
-}
-
-html::-webkit-scrollbar-thumb, ul::-webkit-scrollbar-thumb, div::-webkit-scrollbar-thumb,
-	body::-webkit-scrollbar-thumb {
-	background-color: #ddd;
-	outline: 0px solid slategrey;
-} */
 body {
-	font-family: 'NanumSquare', 'Malgun Gothic', '맑은 고딕', Helvetica, Arial,
-		sans-serif !important;
-	font-style: normal;
 	font-weight: 400;
 	font-size: 13px;
 	margin: 0 auto;
@@ -37,17 +19,11 @@ body {
 	background-color: #fff;
 	overflow-x: hidden;
 	max-width: 640px;
-}
-
-body {
-	height: 800px
+	height: 800px;
 }
 
 .img-responsive {
 	margin: 0 auto;
-}
-
-img {
 	width: 150px;
 	position: absolute;
 	top: 10%;
@@ -80,7 +56,7 @@ button.btn:hover {
 	border: 1px solid #95d9f9;
 }
 
-.list_group {
+div.list_group {
 	display: flex;
 	width: 30%;
 	height: 50%;
@@ -109,6 +85,12 @@ span.close:hover {
 
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
+<script>
+	const rootPath = "${rootPath}"
+</script>
+
+<script src="${rootPath}/static/js/intro.js?ver=1"></script>
+
 </head>
 <body>
 	<img src="${rootPath}/static/img/main.png" class="img-responsive">
@@ -128,12 +110,11 @@ span.close:hover {
 			</div>
 		</header>
 
-		<button class="list_group_item btn" data-mapx="60" data-mapy="74" type="button">화정동</button>
-		<button class="list_group_item btn" data-mapx="60" data-mapy="74" type="button">동명동</button>
-		<!-- <button class="list_group_item btn" data-mapx="60" data-mapy="74" data-dust="광주">동명동</button> -->
-		<button class="list_group_item btn" data-mapx="60" data-mapy="74" type="button">봉선동</button>
-		<button class="list_group_item btn" data-mapx="60" data-mapy="74" type="button">각화동</button>
-		<button class="list_group_item btn" data-mapx="60" data-mapy="74" type="button">풍암동</button>
+		<button class="list_group_item btn" data-mapx="59" data-mapy="74" data-dust="광주" type="button">화정동</button>
+		<button class="list_group_item btn" data-mapx="59" data-mapy="74" data-dust="광주" type="button">풍암동</button>
+		<button class="list_group_item btn" data-mapx="60" data-mapy="74" data-dust="광주" type="button">동명동</button>
+		<button class="list_group_item btn" data-mapx="59" data-mapy="73" data-dust="광주" type="button">봉선동</button>
+		<button class="list_group_item btn" data-mapx="60" data-mapy="75" data-dust="광주" type="button">각화동</button>
 	</div>
 
 	<script>
@@ -163,23 +144,6 @@ span.close:hover {
            openAll[i].style.opacity = 1;
        }
      });
-   </script>
-
-	<script>
-   const div_menu = document.querySelector("div.list_group");
-
-   div_menu?.addEventListener("click", (e) => {
-     const button = e.target;
-     
-     if (button.tagName === "BUTTON") {
-       const mapx = button.dataset.mapx;
-       const mapy = button.dataset.mapy;
-       
-       console.log(mapx, mapy);
-       console.log(`${rootPath}/detail/${mapx},${mapy}/list`);
-       /* document.location.href = `${rootPath}/detail/${mapx},${mapy}/list`; */
-     }
-   });
    </script>
 
 </body>
