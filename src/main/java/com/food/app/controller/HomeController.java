@@ -59,5 +59,12 @@ public class HomeController {
 
 		return "test/dust/list";
 	}
+	
+	@RequestMapping(value = "/test/kakao", method = RequestMethod.GET)
+	public String kakao() {
+
+		return "test/kakao/home";
+	}
+
 
 }

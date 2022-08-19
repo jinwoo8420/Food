@@ -40,7 +40,7 @@ public class NaverServiceImpl implements NaverService {
 		encodeSearch += "&" + URLEncoder.encode("query", "UTF-8");
 		encodeSearch += "=" + URLEncoder.encode("광주 " + search + " 맛집", "UTF-8");
 		encodeSearch += "&" + URLEncoder.encode("display", "UTF-8");
-		encodeSearch += "=10";
+		encodeSearch += "=5";
 
 		queryString += encodeSearch;
 
