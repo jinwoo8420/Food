@@ -85,7 +85,11 @@ public class WeatherServiceImpl implements WeatherService {
 						+ URLEncoder.encode(dateForm.format(date), "UTF-8")); // 기준 날짜
 			}
 
-			weather_url += ("&" + URLEncoder.encode("base_time", "UTF-8") + "=" + URLEncoder.encode(time, "UTF-8")); // 기준 시간(0200 부터 3시간 단위)
+			weather_url += ("&" + URLEncoder.encode("base_time", "UTF-8") + "=" + URLEncoder.encode(time, "UTF-8")); // 기준
+																														// 시간(0200
+																														// 부터
+																														// 3시간
+																														// 단위)
 			weather_url += ("&" + URLEncoder.encode("nx", "UTF-8") + "=" + URLEncoder.encode(mapX, "UTF-8")); // x 좌표
 			weather_url += ("&" + URLEncoder.encode("ny", "UTF-8") + "=" + URLEncoder.encode(mapY, "UTF-8")); // y 좌표
 		} catch (UnsupportedEncodingException e) {
@@ -153,20 +157,20 @@ public class WeatherServiceImpl implements WeatherService {
 				}
 			}
 
-			if(category.equals("PTY")){
-                rain = "강수 형태 : ";
-                if(fcstValue.equals(0)) {
-                	rain += weather_code[0];
-                }else if(fcstValue.equals(1)) {
-                	rain += weather_code[1];
-                }else if(fcstValue.equals(2)) {
-                	rain += weather_code[2];
-                }else if(fcstValue.equals(3)) {
-                	rain += weather_code[3];
-                }else if(fcstValue.equals(4)) {
-                	rain += weather_code[4];
-                }
-            }
+			if (category.equals("PTY")) {
+				rain = "강수 형태 : ";
+				if (fcstValue.equals(0)) {
+					rain += weather_code[0];
+				} else if (fcstValue.equals(1)) {
+					rain += weather_code[1];
+				} else if (fcstValue.equals(2)) {
+					rain += weather_code[2];
+				} else if (fcstValue.equals(3)) {
+					rain += weather_code[3];
+				} else if (fcstValue.equals(4)) {
+					rain += weather_code[4];
+				}
+			}
 
 			if (category.equals("SKY")) {
 				System.out.println(st_date + "\n" + st_time + "\n" + weather + "\n" + tmperature);
@@ -182,6 +186,17 @@ public class WeatherServiceImpl implements WeatherService {
 		Gson gson = new Gson();
 		List<WeatherVO> list = gson.fromJson(item.toString(), new TypeToken<List<WeatherVO>>() {
 		}.getType());
+
+		for (int i = 0; i < 100; i++) {
+			String str1 = list.get(i).getFcstValue();
+			int intValue1 = Integer.parseInt(str1);
+			
+			if (list.get(i).getCategory().equals("TMP")) {
+				System.out.println("TMP : " + intValue1);
+				break;
+			}
+
+		}
 
 		return list;
 	}

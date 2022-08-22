@@ -84,6 +84,32 @@ public class DustServiceImpl implements DustService {
 		List<DustVO> list = gson.fromJson(item.toString(), new TypeToken<List<DustVO>>() {
 		}.getType());
 
+//		for (int i = 0; i < 100; i++) {
+//			String str1 = list.get(i).getPm10Value();
+//			int intValue1 = Integer.parseInt(str1);
+//
+//			if (list.get(i).getStationName().equals("운암동")) {
+//				if(intValue1 > 30 || intValue1 <= 80) {
+//					System.out.println("pm10 : " + intValue1);	
+//					break;
+//				}
+//			}
+//
+//		}
+//		
+//		for (int i = 0; i < 100; i++) {
+//			String str2 = list.get(i).getPm25Value();
+//			int intValue2 = Integer.parseInt(str2);
+//
+//			if (list.get(i).getStationName().equals("운암동")) {
+//				if(intValue2 > 15 || intValue2 <= 35) {
+//					System.out.println("pm25 : " + intValue2);	
+//					break;
+//				}
+//			}
+//
+//		}
+
 		return list;
 	}
 

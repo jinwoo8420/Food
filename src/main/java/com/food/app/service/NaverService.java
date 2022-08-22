@@ -7,4 +7,6 @@ public interface NaverService {
 	public String queryString(String search) throws UnsupportedEncodingException;
 
 	public List<Object> getNaver(String queryString);
+	
+	public String js_queryString(String search) throws UnsupportedEncodingException;
 }

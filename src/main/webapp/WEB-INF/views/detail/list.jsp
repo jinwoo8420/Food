@@ -65,10 +65,12 @@ h3 {
 	width: 50%;
 	height: 50%;
 	margin: 0 auto;
+	margin-bottom: 20px;
 	background-color: #fca8f178;
 	border-radius: 10px;
 	box-shadow: 1px 0.5px 1px 0.5px #ca75ad8f;
 	position: relative;
+	background-color: #fca8f178;
 }
 
 a#kakaotalk-sharing-btn {
@@ -81,7 +83,6 @@ a#kakaotalk-sharing-btn {
 </style>
 
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 
 </head>
 <body>
@@ -174,40 +175,9 @@ a#kakaotalk-sharing-btn {
 	<br>
 	<br>
 
-	<%-- 	<div class="food_list">
-		<h3>오늘의 추천 메뉴는?</h3>
-		<h4>* ${RAINFOOD} *</h4>
-		<button class="kakao_btn">버튼</button>
-
-		<br>
-
-		<c:forEach items="${RAINLIST}" var="rain">
-			<div>
-
-				<h5>
-					<b>${rain.title}</b>
-				</h5>
-
-				<c:if test="${empty rain.link}">
-					<p>홈페이지 : 제공된 주소가 없습니다</p>
-				</c:if>
-
-				<c:if test="${not empty rain.link}">
-					<p>홈페이지 : ${rain.link}</p>
-				</c:if>
-
-				<p>주소 : ${rain.address}</p>
-				<p>도로명 주소 : ${rain.roadAddress}</p>
-
-				<br>
-			</div>
-
-		</c:forEach>
-	</div> --%>
-
 	<div class="food_list">
 		<h3>오늘의 추천 메뉴는?</h3>
-		<h4>* ${DUSTFOOD} *</h4>
+		<h4>* ${FOOD} *</h4>
 
 		<a id="kakaotalk-sharing-btn">
 			<img src="https://developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" />
@@ -215,84 +185,69 @@ a#kakaotalk-sharing-btn {
 
 		<br>
 
-		<c:forEach items="${DUSTLIST}" var="dust">
+		<c:forEach items="${LIST}" var="food_list">
 			<div>
-
 				<h5>
-					<b>${dust.title}</b>
+					<b> <a target='_blank' href="https://search.naver.com/search.naver?query=광주 <c:out value='${food_list.title.replaceAll("\\\<.*?\\\>","")}' />">${food_list.title}</a>
+					</b>
 				</h5>
 
-				<c:if test="${empty dust.link}">
+				<c:if test="${empty food_list.link}">
 					<p>홈페이지 : 제공된 주소가 없습니다</p>
 				</c:if>
 
-				<c:if test="${not empty dust.link}">
-					<p>홈페이지 : ${dust.link}</p>
+				<c:if test="${not empty food_list.link}">
+					<p>홈페이지 : ${food_list.link}</p>
 				</c:if>
 
-				<p>주소 : ${dust.address}</p>
-				<p>도로명 주소 : ${dust.roadAddress}</p>
+				<p>주소 : ${food_list.address}</p>
+				<p>도로명 주소 : ${food_list.roadAddress}</p>
 
 				<br>
 			</div>
 		</c:forEach>
 	</div>
 
+	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 	<script type="text/javascript">
-		Kakao.init('be01097258cdbbe3042dc5464adc574e');
+		Kakao.init("be01097258cdbbe3042dc5464adc574e");
+		
+		const extractTextPattern = /(<([^>]+)>)/gi;
 
 		Kakao.Share
 				.createDefaultButton({
-					container : '#kakaotalk-sharing-btn',
-					objectType : 'list',
-					headerTitle : 'WEEKLY MAGAZINE',
+					container : "#kakaotalk-sharing-btn",
+					objectType : "list",
+					headerTitle : 'FOOD',
 					headerLink : {
-						mobileWebUrl : 'https://developers.kakao.com',
-						webUrl : 'https://developers.kakao.com',
+						mobileWebUrl : '',
+						webUrl : '',
 					},
 					contents : [
+						<c:forEach items="${JS_LIST}" var="list">
 							{
-								title : '취미의 특징, 탁구',
-								description : '스포츠',
-								imageUrl : 'http://k.kakaocdn.net/dn/bDPMIb/btqgeoTRQvd/49BuF1gNo6UXkdbKecx600/kakaolink40_original.png',
+								title : '<c:out value='${list.title.replaceAll("\\\<.*?\\\>","")}' />', 
+								description : '${list.address}',
+								imageUrl:
+							        'http://k.kakaocdn.net/dn/bDPMIb/btqgeoTRQvd/49BuF1gNo6UXkdbKecx600/kakaolink40_original.png',
 								link : {
-									mobileWebUrl : 'https://developers.kakao.com',
-									webUrl : 'https://developers.kakao.com',
+									mobileWebUrl: "https://search.naver.com/search.naver?query=" + '광주 ' + '<c:out value='${list.title.replaceAll("\\\<.*?\\\>","")}' />',
+							        webUrl: "https://search.naver.com/search.naver?query=" + '광주 ' + '<c:out value='${list.title.replaceAll("\\\<.*?\\\>","")}' />',
 								},
 							},
-							{
-								title : '크림으로 이해하는 커피이야기',
-								description : '음식',
-								imageUrl : 'http://k.kakaocdn.net/dn/QPeNt/btqgeSfSsCR/0QJIRuWTtkg4cYc57n8H80/kakaolink40_original.png',
-								link : {
-									mobileWebUrl : 'https://developers.kakao.com',
-									webUrl : 'https://developers.kakao.com',
-								},
-							},
-							{
-								title : '감성이 가득한 분위기',
-								description : '사진',
-								imageUrl : 'http://k.kakaocdn.net/dn/c7MBX4/btqgeRgWhBy/ZMLnndJFAqyUAnqu4sQHS0/kakaolink40_original.png',
-								link : {
-									mobileWebUrl : 'https://search.naver.com/search.naver?" + query',
-									webUrl : 'https://search.naver.com/search.naver?' + query,
-								},
-							}, ],
-				/* 	buttons : [ {
-						title : '웹으로 보기',
-						link : {
-							mobileWebUrl : 'https://developers.kakao.com',
-							webUrl : 'https://developers.kakao.com',
-						},
-					}, {
-						title : '앱으로 보기',
-						link : {
-							mobileWebUrl : 'https://developers.kakao.com',
-							webUrl : 'https://developers.kakao.com',
-						},
-					}, ], */
-				});
+						</c:forEach>
+					],
+					buttons: [
+					    {
+					        title: '날씨 보기',
+					        link: {
+					          mobileWebUrl: 'https://search.naver.com/search.naver?sm=top_hty&fbm=0&ie=utf8&query=%EA%B4%91%EC%A3%BC%20%EB%82%A0%EC%94%A8',
+					          webUrl: 'https://search.naver.com/search.naver?sm=top_hty&fbm=0&ie=utf8&query=%EA%B4%91%EC%A3%BC%20%EB%82%A0%EC%94%A8',
+					        },
+					      },
+					    ],
+					  });
+		
 	</script>
-
 </body>
 </html>

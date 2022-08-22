@@ -123,4 +123,21 @@ public class NaverServiceImpl implements NaverService {
 		}
 	}
 
+	@Override
+	public String js_queryString(String search) throws UnsupportedEncodingException {
+		String queryString = APIConfig.NAVER_API;
+		String encodeSearch = null;
+
+		encodeSearch = "?" + URLEncoder.encode("sort", "UTF-8");
+		encodeSearch += "=comment";
+		encodeSearch += "&" + URLEncoder.encode("query", "UTF-8");
+		encodeSearch += "=" + URLEncoder.encode("광주 " + search + " 맛집", "UTF-8");
+		encodeSearch += "&" + URLEncoder.encode("display", "UTF-8");
+		encodeSearch += "=3";
+
+		queryString += encodeSearch;
+
+		return queryString;
+	}
+
 }
