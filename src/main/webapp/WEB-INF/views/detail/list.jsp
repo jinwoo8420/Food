@@ -80,6 +80,14 @@ a#kakaotalk-sharing-btn {
 	margin: 15px;
 	cursor: pointer;
 }
+
+a#back-btn {
+	position: absolute;
+	top: 0;
+	left: 0;
+	margin: 15px;
+	cursor: pointer;
+}
 </style>
 
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -181,6 +189,10 @@ a#kakaotalk-sharing-btn {
 
 		<a id="kakaotalk-sharing-btn">
 			<img src="https://developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" />
+		</a>
+
+		<a id="back-btn" href="${rootPath}/intro">
+			<img src="${rootPath}/static/img/navbar-back.svg" />
 		</a>
 
 		<br>
