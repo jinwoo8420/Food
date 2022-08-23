@@ -128,61 +128,6 @@ public class WeatherServiceImpl implements WeatherService {
 
 		JSONArray item = items.getJSONArray("item");
 
-		String weather = null;
-		String tmperature = null;
-		String rain = null;
-
-		for (int i = 0; i < item.length(); i++) {
-			JSONObject obj = item.getJSONObject(i);
-
-			String category = obj.getString("category");
-			int st_date = obj.getInt("fcstDate");
-			int st_time = obj.getInt("fcstTime");
-			Object fcstValue = obj.get("fcstValue");
-
-			if (category.equals("TMP")) {
-				tmperature = "기온은 " + fcstValue + "℃ 입니다.";
-			}
-
-			if (category.equals("SKY")) {
-				weather = "현재 날씨는 ";
-				if (fcstValue.equals(1)) {
-					weather += "맑은 상태";
-				} else if (fcstValue.equals(2)) {
-					weather += "비가 오는 상태 ";
-				} else if (fcstValue.equals(3)) {
-					weather += "구름이 많은 상태 ";
-				} else if (fcstValue.equals(4)) {
-					weather += "흐린 상태 ";
-				}
-			}
-
-			if (category.equals("PTY")) {
-				rain = "강수 형태 : ";
-				if (fcstValue.equals(0)) {
-					rain += weather_code[0];
-				} else if (fcstValue.equals(1)) {
-					rain += weather_code[1];
-				} else if (fcstValue.equals(2)) {
-					rain += weather_code[2];
-				} else if (fcstValue.equals(3)) {
-					rain += weather_code[3];
-				} else if (fcstValue.equals(4)) {
-					rain += weather_code[4];
-				}
-			}
-
-			if (category.equals("SKY")) {
-				System.out.println(st_date + "\n" + st_time + "\n" + weather + "\n" + tmperature);
-			}
-
-			if (category.equals("PTY")) {
-				System.out.println(rain + "\n");
-				break;
-			}
-
-		}
-
 		Gson gson = new Gson();
 		List<WeatherVO> list = gson.fromJson(item.toString(), new TypeToken<List<WeatherVO>>() {
 		}.getType());
