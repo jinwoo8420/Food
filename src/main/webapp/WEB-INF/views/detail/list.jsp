@@ -223,8 +223,6 @@ a#back-btn {
 	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 	<script type="text/javascript">
 		Kakao.init("be01097258cdbbe3042dc5464adc574e");
-		
-		const extractTextPattern = /(<([^>]+)>)/gi;
 
 		Kakao.Share
 				.createDefaultButton({
