@@ -3,7 +3,6 @@ package com.food.app.service.impl;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -68,33 +67,21 @@ public class WeatherServiceImpl implements WeatherService {
 			time = "2300";
 		}
 
-		String[] weather_code = { "없음", "비", "비/눈", "눈", "소나기" };
+		weather_url += ("?" + URLEncoder.encode("serviceKey", "UTF-8") + "=" + KeyConfig.KEY_1);
+		weather_url += ("&" + URLEncoder.encode("pageNo", "UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /*페이지번호*/
+		weather_url += ("&" + URLEncoder.encode("numOfRows", "UTF-8") + "="
+				+ URLEncoder.encode("100", "UTF-8")); /*한 페이지 결과 수*/
 
-		try {
-			weather_url += ("?" + URLEncoder.encode("serviceKey", "UTF-8") + "=" + KeyConfig.KEY_1);
-			weather_url += ("&" + URLEncoder.encode("pageNo", "UTF-8") + "="
-					+ URLEncoder.encode("1", "UTF-8")); /*페이지번호*/
-			weather_url += ("&" + URLEncoder.encode("numOfRows", "UTF-8") + "="
-					+ URLEncoder.encode("100", "UTF-8")); /*한 페이지 결과 수*/
-
-			if (nowTime.getHour() == 00 || nowTime.getHour() == 01) {
-				weather_url += ("&" + URLEncoder.encode("base_date", "UTF-8") + "="
-						+ URLEncoder.encode(y_date, "UTF-8")); // 00시 / 01시 일 때 기준 날짜를 하루 전으로 설정
-			} else {
-				weather_url += ("&" + URLEncoder.encode("base_date", "UTF-8") + "="
-						+ URLEncoder.encode(dateForm.format(date), "UTF-8")); // 기준 날짜
-			}
-
-			weather_url += ("&" + URLEncoder.encode("base_time", "UTF-8") + "=" + URLEncoder.encode(time, "UTF-8")); // 기준
-																														// 시간(0200
-																														// 부터
-																														// 3시간
-																														// 단위)
-			weather_url += ("&" + URLEncoder.encode("nx", "UTF-8") + "=" + URLEncoder.encode(mapX, "UTF-8")); // x 좌표
-			weather_url += ("&" + URLEncoder.encode("ny", "UTF-8") + "=" + URLEncoder.encode(mapY, "UTF-8")); // y 좌표
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
+		if (nowTime.getHour() == 00 || nowTime.getHour() == 01) {
+			weather_url += ("&" + URLEncoder.encode("base_date", "UTF-8") + "=" + URLEncoder.encode(y_date, "UTF-8"));
+		} else {
+			weather_url += ("&" + URLEncoder.encode("base_date", "UTF-8") + "="
+					+ URLEncoder.encode(dateForm.format(date), "UTF-8")); // 기준 날짜
 		}
+
+		weather_url += ("&" + URLEncoder.encode("base_time", "UTF-8") + "=" + URLEncoder.encode(time, "UTF-8"));
+		weather_url += ("&" + URLEncoder.encode("nx", "UTF-8") + "=" + URLEncoder.encode(mapX, "UTF-8")); // x 좌표
+		weather_url += ("&" + URLEncoder.encode("ny", "UTF-8") + "=" + URLEncoder.encode(mapY, "UTF-8")); // y 좌표
 
 		URL url = new URL(weather_url.toString());
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -131,17 +118,6 @@ public class WeatherServiceImpl implements WeatherService {
 		Gson gson = new Gson();
 		List<WeatherVO> list = gson.fromJson(item.toString(), new TypeToken<List<WeatherVO>>() {
 		}.getType());
-
-		for (int i = 0; i < 100; i++) {
-			String str1 = list.get(i).getFcstValue();
-			int intValue1 = Integer.parseInt(str1);
-			
-			if (list.get(i).getCategory().equals("TMP")) {
-				System.out.println("TMP : " + intValue1);
-				break;
-			}
-
-		}
 
 		return list;
 	}

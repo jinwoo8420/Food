@@ -16,9 +16,6 @@ import com.food.app.service.DustService;
 import com.food.app.service.NaverService;
 import com.food.app.service.WeatherService;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 @Controller
 @RequestMapping(value = "/detail")
 public class DetailController {

@@ -241,8 +241,8 @@ a#back-btn {
 								imageUrl:
 							        'http://k.kakaocdn.net/dn/bDPMIb/btqgeoTRQvd/49BuF1gNo6UXkdbKecx600/kakaolink40_original.png',
 								link : {
-									mobileWebUrl: "https://search.naver.com/search.naver?query=" + '광주 ' + '<c:out value='${list.title.replaceAll("\\\<.*?\\\>","")}' />',
-							        webUrl: "https://search.naver.com/search.naver?query=" + '광주 ' + '<c:out value='${list.title.replaceAll("\\\<.*?\\\>","")}' />',
+									mobileWebUrl: "https://search.naver.com/search.naver?query=" + '${DUST[0].sidoName} ' + '<c:out value='${list.title.replaceAll("\\\<.*?\\\>","")}' />',
+							        webUrl: "https://search.naver.com/search.naver?query=" + '${DUST[0].sidoName} ' + '<c:out value='${list.title.replaceAll("\\\<.*?\\\>","")}' />',
 								},
 							},
 						</c:forEach>
