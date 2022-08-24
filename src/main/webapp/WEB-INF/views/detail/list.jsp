@@ -11,8 +11,18 @@
 <title>Insert title here</title>
 
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link href="https://fonts.googleapis.com/css2?family=Hi+Melody&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
 
 <style>
+* {
+	font-family: 'Jua', sans-serif;
+}
+
+a {
+	text-decoration: none;
+}
+
 img.weather_img {
 	width: 50px;
 }
@@ -39,12 +49,6 @@ div.weather_list {
 	padding-left: 10px;
 	padding-right: 10px;
 	line-height: 132px;
-	border-radius: 5px;
-	padding-left: 10px;
-	padding-right: 10px;
-	padding-left: 10px;
-	padding-right: 10px;
-	padding-right: 10px;
 }
 
 div.dust_list {
@@ -55,8 +59,14 @@ div.dust_list {
 	text-align: center;
 }
 
-h3 {
+h2.menu {
+	font-family: 'Hi Melody', cursive;
 	display: inline-block;
+	font-weight: bold;
+}
+
+h3.food_name {
+	font-family: 'Hi Melody', cursive;
 }
 
 .food_list {
@@ -70,7 +80,6 @@ h3 {
 	border-radius: 10px;
 	box-shadow: 1px 0.5px 1px 0.5px #ca75ad8f;
 	position: relative;
-	background-color: #fca8f178;
 }
 
 a#kakaotalk-sharing-btn {
@@ -184,8 +193,8 @@ a#back-btn {
 	<br>
 
 	<div class="food_list">
-		<h3>오늘의 추천 메뉴는?</h3>
-		<h4>* ${FOOD} *</h4>
+		<h2 class="menu">오늘의 추천 메뉴는?</h2>
+		<h3 class="food_name">* ${FOOD} *</h3>
 
 		<a id="kakaotalk-sharing-btn">
 			<img src="https://developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" />

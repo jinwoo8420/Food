@@ -8,6 +8,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Insert title here</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Hi+Melody&display=swap" rel="stylesheet">
+
 <style>
 body {
 	font-weight: 400;
@@ -44,11 +47,13 @@ hr {
 }
 
 button.btn {
+	font-family: 'Hi Melody', cursive;
 	padding: 10px 15px;
 	margin-right: 10px;
 	background-color: #95d9f9;
 	border: none;
 	border-radius: 5px;
+	font-size: 20px;
 }
 
 button.btn:hover {
