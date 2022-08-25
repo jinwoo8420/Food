@@ -12,20 +12,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap" rel="stylesheet">
 
 <style>
-html::-webkit-scrollbar, ul::-webkit-scrollbar, div::-webkit-scrollbar {
+html::-webkit-scrollbar {
 	width: 0.0em;
 	height: 0.0em;
-}
-
-html::-webkit-scrollbar-track, ul::-webkit-scrollbar-track, div::-webkit-scrollbar-track,
-	body::-webkit-scrollbar-track {
-	-webkit-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.2);
-}
-
-html::-webkit-scrollbar-thumb, ul::-webkit-scrollbar-thumb, div::-webkit-scrollbar-thumb,
-	body::-webkit-scrollbar-thumb {
-	background-color: #ddd;
-	outline: 0px solid slategrey;
 }
 
 .splash {
@@ -33,11 +22,8 @@ html::-webkit-scrollbar-thumb, ul::-webkit-scrollbar-thumb, div::-webkit-scrollb
 	height: 100vh;
 }
 
-.splash img {
-	position: absolute;
-	top: 40%;
-	left: 50%;
-	transform: translate(-50%, -50%);
+body {
+	background-color: #e7dcdc;
 }
 
 p {
@@ -51,22 +37,13 @@ p {
 	font-weight: bold;
 }
 
-.img-responsive {
-	margin: 0 auto;
-}
-
-.d-flex {
-	display: -ms-flexbox !important;
-	display: flex !important;
-}
-
-.align-items-center {
-	-ms-flex-align: center !important;
-	align-items: center !important;
-}
-
 img {
 	width: 250px;
+	margin: 0 auto;
+	position: absolute;
+	top: 40%;
+	left: 50%;
+	transform: translate(-50%, -50%);
 }
 </style>
 </head>

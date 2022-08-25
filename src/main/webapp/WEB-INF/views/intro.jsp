@@ -12,26 +12,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Hi+Melody&display=swap" rel="stylesheet">
 
 <style>
-body {
-	font-weight: 400;
-	font-size: 13px;
-	margin: 0 auto;
-	color: #000;
-	padding-top: 43px !important;
-	padding-bottom: 45px !important;
-	background-color: #fff;
-	overflow-x: hidden;
-	max-width: 640px;
-	height: 800px;
-}
-
 .img-responsive {
 	margin: 0 auto;
 	width: 150px;
-	position: absolute;
-	top: 10%;
-	left: 50%;
-	transform: translate(-50%, -50%);
+	display: block;
 }
 
 div.btn {
@@ -42,23 +26,23 @@ div.btn {
 	z-index: 10;
 }
 
-hr {
-	border-bottom: 2px solid black;
-}
-
 button.btn {
 	font-family: 'Hi Melody', cursive;
 	padding: 10px 15px;
 	margin-right: 10px;
-	background-color: #95d9f9;
+	background-color: #ffffff;
 	border: none;
 	border-radius: 5px;
 	font-size: 20px;
 }
 
 button.btn:hover {
-	background-color: white;
-	border: 1px solid #95d9f9;
+	background-color: #ffaad47d;
+	border: 1px solid #ffffff;
+}
+
+body {
+	background-color: #e7dcdc;
 }
 
 div.list_group {
@@ -69,8 +53,8 @@ div.list_group {
 	align-items: center;
 	justify-content: center;
 	border-radius: 5%;
-	background-color: #178ec7;
-	border: 1px solid #aaa;
+	background-color: #ccd2d2;
+	border: 2px solid #eeaaaa;
 	opacity: 0;
 	transition: 0.5s;
 	top: 50%;
@@ -85,6 +69,14 @@ span.close {
 
 span.close:hover {
 	background-color: #dda8a8 !important;
+}
+
+.a {
+	background-color: pink;
+}
+
+hr {
+	border: 2px solid black;
 }
 </style>
 
@@ -109,9 +101,9 @@ span.close:hover {
 	</div>
 
 	<div class="list_group">
-		<header class="w3-container w3-teal">
+		<header class="w3-container">
 			<div id="close_list">
-				<span class="close w3-button w3-display-topright" style="font-size: 20px"> &times; </span>
+				<span class="close w3-button w3-display-topright" style="font-size: 20px; color: white;"> &times; </span>
 			</div>
 		</header>
 

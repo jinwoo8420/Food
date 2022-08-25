@@ -31,6 +31,11 @@ span.pm10 {
 	font-size: 5px;
 }
 
+#kakaotalk-sharing-btn:hover {
+	box-shadow: 2px 2px 2px black;
+	border-radius: 13px;
+}
+
 img.img-responsive {
 	margin: 0 auto;
 	width: 150px;
@@ -43,7 +48,7 @@ div.weather_api {
 }
 
 div.weather_list {
-	background-color: #c1cfff96;
+	background-color: #ffffffbf;
 	box-shadow: 2px 2px 2px 2px #a0add763;
 	border-radius: 5px;
 	padding-left: 10px;
@@ -52,21 +57,25 @@ div.weather_list {
 }
 
 div.dust_list {
-	background-color: #c1cfff96;
+	background-color: #ffffffbf;
 	box-shadow: 2px 2px 2px 2px #a0add763;
 	padding: 10px;
 	border-radius: 5px;
 	text-align: center;
 }
 
-h2.menu {
+h1.menu {
 	font-family: 'Hi Melody', cursive;
 	display: inline-block;
 	font-weight: bold;
 }
 
-h3.food_name {
+h2.food_name {
 	font-family: 'Hi Melody', cursive;
+}
+
+body {
+	background-color: #e7dcdc;
 }
 
 .food_list {
@@ -76,10 +85,12 @@ h3.food_name {
 	height: 50%;
 	margin: 0 auto;
 	margin-bottom: 20px;
-	background-color: #fca8f178;
-	border-radius: 10px;
+	background-color: #dfe4e4;
+	border: 2px solid #eeaaaa;
+	border-radius: 30px;
 	box-shadow: 1px 0.5px 1px 0.5px #ca75ad8f;
 	position: relative;
+	border: 2px solid #eeaaaa;
 }
 
 a#kakaotalk-sharing-btn {
@@ -96,6 +107,10 @@ a#back-btn {
 	left: 0;
 	margin: 15px;
 	cursor: pointer;
+}
+
+.food_title:hover {
+	border-bottom: 2px solid black;
 }
 </style>
 
