@@ -22,4 +22,7 @@ public class WeatherVO {
 	private String baseTime;
 	private String nx;
 	private String ny;
+	private String skyValue;
+	private String ptyValue;
+	private String rainFood;
 }

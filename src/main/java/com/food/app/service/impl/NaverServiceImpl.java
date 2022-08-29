@@ -31,14 +31,14 @@ import com.food.app.service.NaverService;
 @Service
 public class NaverServiceImpl implements NaverService {
 	@Override
-	public String queryString(String search) throws UnsupportedEncodingException {
+	public String queryString(String area, String search) throws UnsupportedEncodingException {
 		String queryString = APIConfig.NAVER_API;
 		String encodeSearch = null;
 
 		encodeSearch = "?" + URLEncoder.encode("sort", "UTF-8");
 		encodeSearch += "=comment";
 		encodeSearch += "&" + URLEncoder.encode("query", "UTF-8");
-		encodeSearch += "=" + URLEncoder.encode("광주 " + search + " 맛집", "UTF-8");
+		encodeSearch += "=" + URLEncoder.encode(area + " " + search + " 맛집", "UTF-8");
 		encodeSearch += "&" + URLEncoder.encode("display", "UTF-8");
 		encodeSearch += "=5";
 
@@ -121,23 +121,6 @@ public class NaverServiceImpl implements NaverService {
 		} catch (IOException e) {
 			return null;
 		}
-	}
-
-	@Override
-	public String js_queryString(String search) throws UnsupportedEncodingException {
-		String queryString = APIConfig.NAVER_API;
-		String encodeSearch = null;
-
-		encodeSearch = "?" + URLEncoder.encode("sort", "UTF-8");
-		encodeSearch += "=comment";
-		encodeSearch += "&" + URLEncoder.encode("query", "UTF-8");
-		encodeSearch += "=" + URLEncoder.encode("광주 " + search + " 맛집", "UTF-8");
-		encodeSearch += "&" + URLEncoder.encode("display", "UTF-8");
-		encodeSearch += "=3";
-
-		queryString += encodeSearch;
-
-		return queryString;
 	}
 
 }

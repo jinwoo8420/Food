@@ -93,14 +93,14 @@ hr {
 	<img src="${rootPath}/static/img/main.png" class="img-responsive">
 
 	<div class="btn">
-		<button class="open btn">광주</button>
-		<button class="open btn">서울</button>
-		<button class="open btn">제주</button>
-		<button class="open btn">부산</button>
-		<button class="open btn">대구</button>
+		<button class="open btn gwangju">광주</button>
+		<button class="open btn seoul">서울</button>
+		<button class="open btn jeju">제주</button>
+		<button class="open btn busan">부산</button>
+		<button class="open btn daegu">대구</button>
 	</div>
 
-	<div class="list_group">
+	<div class="list_group gwangju">
 		<header class="w3-container">
 			<div id="close_list">
 				<span class="close w3-button w3-display-topright" style="font-size: 20px; color: white;"> &times; </span>
@@ -118,13 +118,13 @@ hr {
    const open = document.querySelector("button.open");
    const openAll = document.querySelectorAll(".open");
    const close = document.querySelector("span.close");
-   const list = document.querySelector("div.list_group");
+   const gwangju = document.querySelector("div.gwangju");
    
    close.disabled = true;
    
    open.addEventListener("click", () => {
-      list.style.opacity = 1;
-      list.style.zIndex = "20";
+	  gwangju.style.opacity = 1;
+	  gwangju.style.zIndex = "20";
       close.disabled = false;
        
        for ( var i = 0; i < openAll.length; i++ ) {
@@ -133,8 +133,8 @@ hr {
      });
 
    close.addEventListener("click", () => {
-       list.style.opacity = 0;
-       list.style.zIndex = "0";
+	   gwangju.style.opacity = 0;
+	   gwangju.style.zIndex = "0";
        close.disabled = true;
        
        for ( var i = 0; i < openAll.length; i++ ) {

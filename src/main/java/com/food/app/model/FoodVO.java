@@ -13,13 +13,8 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @Builder
-public class DustVO {
-	private String sidoName;
-	private String dataTime;
-	private String pm10Value;
-	private String pm25Value;
-	private String stationName;
-	private String pm10Grade;
-	private String pm25Grade;
+public class FoodVO {
+	private String rainFood;
 	private String dustFood;
+	private String allFood;
 }

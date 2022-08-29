@@ -109,7 +109,7 @@ a#back-btn {
 	cursor: pointer;
 }
 
-.food_title:hover {
+a#food_title:hover {
 	border-bottom: 2px solid black;
 }
 </style>
@@ -123,84 +123,48 @@ a#back-btn {
 
 	<div class="weather_api">
 		<div class="weather_list">
-			<c:set var="loop_flag" value="false" />
-			<c:forEach items="${WEATHER}" var="weather_list">
-				<c:if test="${not loop_flag }">
-					<c:if test="${weather_list.category eq 'TMP'}">
-         현재기온 ${weather_list.fcstValue}℃ &nbsp&nbsp
-         </c:if>
-					<c:set var="loop_flag" value="true" />
-				</c:if>
-			</c:forEach>
 
-			<c:set var="loop_flag" value="false" />
-			<c:forEach items="${WEATHER}" var="weather_list">
-				<c:if test="${not loop_flag }">
-					<c:if test="${weather_list.category eq 'SKY'}">
-						<c:if test="${weather_list.fcstValue eq '1'}">
-               맑음
-               <img class="weather_img" src="${rootPath}/static/img/Sunny.png"> &nbsp&nbsp
-                  </c:if>
+			현재기온 ${WEATHER[0].fcstValue}℃ &nbsp&nbsp
 
-						<c:if test="${weather_list.fcstValue eq '3'}">
-               구름 많음
-               <img class="weather_img" src="${rootPath}/static/img/Cloud.png"> &nbsp&nbsp
-                  </c:if>
+			${WEATHER[5].skyValue} &nbsp&nbsp
 
-						<c:if test="${weather_list.fcstValue eq '4'}">
-               흐림
-               <img class="weather_img" src="${rootPath}/static/img/Cloudy.png"> &nbsp&nbsp
-                  </c:if>
-						<c:set var="loop_flag" value="true" />
-					</c:if>
-				</c:if>
-			</c:forEach>
+			<c:if test="${WEATHER[5].fcstValue eq '1'}">
+				<img class="weather_img" src="${rootPath}/static/img/Sunny.png"> &nbsp&nbsp
+			</c:if>
 
-			<c:set var="loop_flag" value="false" />
-			<c:forEach items="${WEATHER}" var="weather_list">
-				<c:if test="${not loop_flag }">
-					<c:if test="${weather_list.category eq 'PTY'}">
-         강수상태 
-            <c:if test="${weather_list.fcstValue eq '0'}">
-               없음
-            </c:if>
+			<c:if test="${WEATHER[5].fcstValue eq '3'}">
+				<img class="weather_img" src="${rootPath}/static/img/Cloud.png"> &nbsp&nbsp
+	        </c:if>
 
-						<c:if test="${weather_list.fcstValue eq '1'}">
-               비
-               <img class="weather_img" src="${rootPath}/static/img/Rain.png">
-						</c:if>
+			<c:if test="${WEATHER[5].fcstValue eq '4'}">
+				<img class="weather_img" src="${rootPath}/static/img/Cloudy.png"> &nbsp&nbsp
+	        </c:if>
 
-						<c:if test="${weather_list.fcstValue eq '2'}">
-               비/눈
-               <img class="weather_img" src="${rootPath}/static/img/Rain.png">
-							<img class="weather_img" src="${rootPath}/static/img/Snow.png">
-						</c:if>
+			강수상태 ${WEATHER[6].ptyValue} &nbsp&nbsp
+			
+			<c:if test="${WEATHER[6].fcstValue eq '1' || WEATHER[6].fcstValue eq '4'}">
+				<img class="weather_img" src="${rootPath}/static/img/Rain.png">
+			</c:if>
 
-						<c:if test="${weather_list.fcstValue eq '3'}">
-               눈
-               <img class="weather_img" src="${rootPath}/static/img/Snow.png">
-						</c:if>
-
-						<c:if test="${weather_list.fcstValue eq '4'}">
-               소나기
-               <img class="weather_img" src="${rootPath}/static/img/Rain.png">
-						</c:if>
-						<c:set var="loop_flag" value="true" />
-					</c:if>
-				</c:if>
-			</c:forEach>
+			<c:if test="${WEATHER[6].fcstValue eq '2' || WEATHER[6].fcstValue eq '3'}">
+				<img class="weather_img" src="${rootPath}/static/img/Snow.png">
+			</c:if>
 		</div>
 
 		<div class="dust_list">
-			<c:forEach items="${DUST}" var="dust_list">
-				<c:if test="${dust_list.stationName eq '운암동'}">
-					<span style="font-size: 18px;">${dust_list.dataTime}</span>
-					<br>
-               미세먼지(PM10) 농도 : ${dust_list.pm10Value} &nbsp / &nbsp 미세먼지(PM2.5) 농도 :  ${dust_list.pm25Value}
-         </c:if>
-			</c:forEach>
-
-			<br> <br> <span class="pm10">* pm10 기준 ~ 30 좋음 &nbsp /&nbsp 31 ~ 80 보통 &nbsp / &nbsp 81 ~ 150 나쁨 &nbsp / &nbsp 151 ~ 매우 나쁨</span> <br> <span class="pm10">* pm2.5 기준 ~ 15 좋음 &nbsp / &nbsp 16 ~ 35 보통 &nbsp / &nbsp 36 ~ 75 나쁨 &nbsp / &nbsp 76 ~ 매우 나쁨</span>
+			<span style="font-size: 18px;">${DUST[0].dataTime}</span>
+			
+			<br>
+			
+			미세먼지(PM10) 농도 : ${DUST[0].pm10Value} &nbsp / &nbsp 미세먼지(PM2.5) 농도 : ${DUST[0].pm25Value} 
+			
+			<br> <br> 
+			
+			<span class="pm10">* pm10 기준 ~ 30 좋음 &nbsp /&nbsp 31 ~ 80 보통 &nbsp / &nbsp 81 ~ 150 나쁨 &nbsp / &nbsp 151 ~ 매우 나쁨</span> 
+			
+			<br>
+			
+			<span class="pm10">* pm2.5 기준 ~ 15 좋음 &nbsp / &nbsp 16 ~ 35 보통 &nbsp / &nbsp 36 ~ 75 나쁨 &nbsp / &nbsp 76 ~ 매우 나쁨</span>
 		</div>
 	</div>
 
@@ -211,20 +175,14 @@ a#back-btn {
 		<h2 class="menu">오늘의 추천 메뉴는?</h2>
 		<h3 class="food_name">* ${FOOD} *</h3>
 
-		<a id="kakaotalk-sharing-btn">
-			<img src="https://developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" />
-		</a>
-
-		<a id="back-btn" href="${rootPath}/intro">
-			<img src="${rootPath}/static/img/navbar-back.svg" />
-		</a>
-
-		<br>
+		<a id="kakaotalk-sharing-btn"> <img src="https://developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" />
+		</a> <a id="back-btn" href="${rootPath}/intro"> <img src="${rootPath}/static/img/navbar-back.svg" />
+		</a> <br>
 
 		<c:forEach items="${LIST}" var="food_list">
 			<div>
 				<h5>
-					<b> <a target='_blank' href="https://search.naver.com/search.naver?query=광주 <c:out value='${food_list.title.replaceAll("\\\<.*?\\\>","")}' />">${food_list.title}</a>
+					<b> <a id="food_title" target='_blank' href="https://search.naver.com/search.naver?query=광주 <c:out value='${food_list.title.replaceAll("\\\<.*?\\\>","")}' />">${food_list.title}</a>
 					</b>
 				</h5>
 
@@ -258,15 +216,15 @@ a#back-btn {
 						webUrl : '',
 					},
 					contents : [
-						<c:forEach items="${JS_LIST}" var="list">
+						<c:forEach items="${LIST}" var="food_list" begin="1" end="3">
 							{
-								title : '<c:out value='${list.title.replaceAll("\\\<.*?\\\>","")}' />', 
-								description : '${list.address}',
+								title : '<c:out value='${food_list.title.replaceAll("\\\<.*?\\\>","")}' />', 
+								description : '${food_list.address}',
 								imageUrl:
 							        'http://k.kakaocdn.net/dn/bDPMIb/btqgeoTRQvd/49BuF1gNo6UXkdbKecx600/kakaolink40_original.png',
 								link : {
-									mobileWebUrl: "https://search.naver.com/search.naver?query=" + '${DUST[0].sidoName} ' + '<c:out value='${list.title.replaceAll("\\\<.*?\\\>","")}' />',
-							        webUrl: "https://search.naver.com/search.naver?query=" + '${DUST[0].sidoName} ' + '<c:out value='${list.title.replaceAll("\\\<.*?\\\>","")}' />',
+									mobileWebUrl: "https://search.naver.com/search.naver?query=" + '${DUST[0].sidoName} ' + '<c:out value='${food_list.title.replaceAll("\\\<.*?\\\>","")}' />',
+							        webUrl: "https://search.naver.com/search.naver?query=" + '${DUST[0].sidoName} ' + '<c:out value='${food_list.title.replaceAll("\\\<.*?\\\>","")}' />',
 								},
 							},
 						</c:forEach>
@@ -275,8 +233,8 @@ a#back-btn {
 					    {
 					        title: '날씨 보기',
 					        link: {
-					          mobileWebUrl: 'https://search.naver.com/search.naver?sm=top_hty&fbm=0&ie=utf8&query=%EA%B4%91%EC%A3%BC%20%EB%82%A0%EC%94%A8',
-					          webUrl: 'https://search.naver.com/search.naver?sm=top_hty&fbm=0&ie=utf8&query=%EA%B4%91%EC%A3%BC%20%EB%82%A0%EC%94%A8',
+					          mobileWebUrl: 'https://search.naver.com/search.naver?query=' + '${DUST[0].sidoName}' + '날씨',
+					          webUrl: 'https://search.naver.com/search.naver?query=' + '${DUST[0].sidoName}' + '날씨',
 					        },
 					      },
 					    ],
