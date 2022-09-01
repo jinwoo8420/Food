@@ -14,7 +14,5 @@ import lombok.ToString;
 @ToString
 @Builder
 public class FoodVO {
-	private String rainFood;
-	private String dustFood;
 	private String allFood;
 }

@@ -3,7 +3,6 @@ package com.food.app.service.impl;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -19,22 +18,16 @@ import java.util.Locale;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.XML;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.food.app.config.KeyConfig;
-import com.food.app.model.FoodVO;
 import com.food.app.model.WeatherVO;
-import com.food.app.service.NaverService;
 import com.food.app.service.WeatherService;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 @Service
 public class WeatherServiceImpl implements WeatherService {
-
-	@Autowired
-	private NaverService naverService;
 
 	@Override
 	public List<WeatherVO> getWeather(String mapX, String mapY) throws IOException, ParseException {
@@ -74,6 +67,8 @@ public class WeatherServiceImpl implements WeatherService {
 			time = "2300";
 		}
 
+//		System.out.println("weather 기준시간 : " + time);
+
 		weather_url += ("?" + URLEncoder.encode("serviceKey", "UTF-8") + "=" + KeyConfig.KEY_1);
 		weather_url += ("&" + URLEncoder.encode("numOfRows", "UTF-8") + "="
 				+ URLEncoder.encode("10", "UTF-8")); /*한 페이지 결과 수*/
@@ -93,7 +88,7 @@ public class WeatherServiceImpl implements WeatherService {
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 		conn.setRequestMethod("GET");
 		conn.setRequestProperty("Content-type", "application/json");
-		System.out.println("Response code: " + conn.getResponseCode());
+//		System.out.println("Response code: " + conn.getResponseCode());
 		BufferedReader rd;
 		if (conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
 			rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
@@ -125,55 +120,31 @@ public class WeatherServiceImpl implements WeatherService {
 		List<WeatherVO> list = gson.fromJson(item.toString(), new TypeToken<List<WeatherVO>>() {
 		}.getType());
 
-		for (int index = 0; index < list.size(); index++) {
-			if (list.get(index).getCategory().equals("SKY")) {
-				if (list.get(index).getFcstValue().equals("1")) {
-					list.get(index).setSkyValue("맑음");
-					break;
-				} else if (list.get(index).getFcstValue().equals("3")) {
-					list.get(index).setSkyValue("구름 많음");
-					break;
-				} else if (list.get(index).getFcstValue().equals("4")) {
-					list.get(index).setSkyValue("흐림");
-					break;
-				}
-			}
+		if (list.get(5).getFcstValue().equals("1")) {
+			list.get(5).setSkyValue("맑음");
+		} else if (list.get(5).getFcstValue().equals("3")) {
+			list.get(5).setSkyValue("구름 많음");
+		} else if (list.get(5).getFcstValue().equals("4")) {
+			list.get(5).setSkyValue("흐림");
 		}
 
-		for (int index = 0; index < list.size(); index++) {
-			if (list.get(index).getCategory().equals("PTY")) {
-				if (list.get(index).getFcstValue().equals("0")) {
-					list.get(index).setPtyValue("없음");
-					break;
-				} else if (list.get(index).getFcstValue().equals("1")) {
-					list.get(index).setPtyValue("비");
-					break;
-				} else if (list.get(index).getFcstValue().equals("2") || list.get(index).getFcstValue().equals("3")) {
-					list.get(index).setPtyValue("눈");
-					break;
-				} else if (list.get(index).getFcstValue().equals("4")) {
-					list.get(index).setPtyValue("소나기");
-					break;
-				}
-			}
+		if (list.get(6).getFcstValue().equals("0")) {
+			list.get(6).setPtyValue("없음");
+		} else if (list.get(6).getFcstValue().equals("1")) {
+			list.get(6).setPtyValue("비");
+		} else if (list.get(6).getFcstValue().equals("2") || list.get(6).getFcstValue().equals("3")) {
+			list.get(6).setPtyValue("눈");
+		} else if (list.get(6).getFcstValue().equals("4")) {
+			list.get(6).setPtyValue("소나기");
 		}
 
-		return list;
-	}
-
-	@Override
-	public List<Object> rainList(String area) throws UnsupportedEncodingException {
 		int i = (int) (Math.random() * 12);
-		FoodVO foodVO = new FoodVO();
 
 		String[] rain_food = { "부대찌개", "아구찜", "해물탕", "칼국수", "수제비", "짬뽕", "우동", "치킨", "국밥", "김치전", "두부김치", "파전" };
-		
-		foodVO.setRainFood(rain_food[i]);
-		
-		String rain_queryString = naverService.queryString(area, foodVO.getRainFood());
-		List<Object> naverRainList = naverService.getNaver(rain_queryString);
+		list.get(6).setRainFood(rain_food[i]);
 
-		return naverRainList;
+		return list;
+
 	}
 
 }

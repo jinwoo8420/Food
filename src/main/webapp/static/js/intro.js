@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const div_menu = document.querySelector("div.list_group");
+  const div_menu = document.querySelector("div.btn");
 
   div_menu?.addEventListener("click", (e) => {
     const button = e.target;
@@ -9,8 +9,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const mapy = button.dataset.mapy;
       const dust = button.dataset.dust;
 
-      console.log(mapx, mapy, dust);
-      //   console.log(`${rootPath}/detail/${mapx},${mapy}/list`);
       document.location.href = `${rootPath}/detail/${mapx},${mapy},${dust}/list`;
     }
   });

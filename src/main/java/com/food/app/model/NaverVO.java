@@ -18,4 +18,6 @@ public class NaverVO {
 	private String link;
 	private String address;
 	private String roadAddress;
+	private String mapx;
+	private String mapy;
 }

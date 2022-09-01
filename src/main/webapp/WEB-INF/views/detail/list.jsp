@@ -13,6 +13,8 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link href="https://fonts.googleapis.com/css2?family=Hi+Melody&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+<!-- <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=zh678sfagk"></script> -->
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=zh678sfagk&submodules=geocoder"></script>
 
 <style>
 * {
@@ -78,7 +80,7 @@ body {
 	background-color: #e7dcdc;
 }
 
-.food_list {
+div.food_list {
 	padding-top: 20px;
 	text-align: center;
 	width: 50%;
@@ -91,6 +93,7 @@ body {
 	box-shadow: 1px 0.5px 1px 0.5px #ca75ad8f;
 	position: relative;
 	border: 2px solid #eeaaaa;
+	z-index: 10;
 }
 
 a#kakaotalk-sharing-btn {
@@ -112,9 +115,24 @@ a#back-btn {
 a#food_title:hover {
 	border-bottom: 2px solid black;
 }
-</style>
 
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+div.test {
+	display: flex;
+	width: 30%;
+	height: 50%;
+	position: absolute;
+	align-items: center;
+	justify-content: center;
+	border-radius: 5%;
+	background-color: #ccd2d2;
+	border: 2px solid #eeaaaa;
+	opacity: 0;
+	transition: 0.5s;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+</style>
 
 </head>
 <body>
@@ -156,7 +174,7 @@ a#food_title:hover {
 			
 			<br>
 			
-			미세먼지(PM10) 농도 : ${DUST[0].pm10Value} &nbsp / &nbsp 미세먼지(PM2.5) 농도 : ${DUST[0].pm25Value} 
+				미세먼지(PM10) 농도 : ${DUST[0].pm10Value} &nbsp / &nbsp 미세먼지(PM2.5) 농도 : ${DUST[0].pm25Value} 
 			
 			<br> <br> 
 			
@@ -172,8 +190,8 @@ a#food_title:hover {
 	<br>
 
 	<div class="food_list">
-		<h2 class="menu">오늘의 추천 메뉴는?</h2>
-		<h3 class="food_name">* ${FOOD} *</h3>
+		<h1 class="menu">오늘의 추천 메뉴는?</h1>
+		<h2 class="food_name">* ${FOOD} *</h2>
 
 		<a id="kakaotalk-sharing-btn"> <img src="https://developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" />
 		</a> <a id="back-btn" href="${rootPath}/intro"> <img src="${rootPath}/static/img/navbar-back.svg" />
@@ -182,7 +200,9 @@ a#food_title:hover {
 		<c:forEach items="${LIST}" var="food_list">
 			<div>
 				<h5>
-					<b> <a id="food_title" target='_blank' href="https://search.naver.com/search.naver?query=광주 <c:out value='${food_list.title.replaceAll("\\\<.*?\\\>","")}' />">${food_list.title}</a>
+					<%-- <b> <a id="food_title" target='_blank' href="https://search.naver.com/search.naver?query=${DUST[0].sidoName} <c:out value='${food_list.title.replaceAll("\\\<.*?\\\>","")}' />">${food_list.title}</a>
+					</b> --%>
+					<b> <a id="food_title">${food_list.title}</a>
 					</b>
 				</h5>
 
@@ -196,11 +216,63 @@ a#food_title:hover {
 
 				<p>주소 : ${food_list.address}</p>
 				<p>도로명 주소 : ${food_list.roadAddress}</p>
+				
+				<p>mapx : ${food_list.mapx}</p>
+				<p>mapy : ${food_list.mapy}</p>
 
 				<br>
 			</div>
 		</c:forEach>
 	</div>
+	
+	<div class="test">
+		<header class="w3-container">
+			<div id="close_list">
+				<span class="close w3-button w3-display-topright" style="font-size: 20px; color: white;"> &times; </span>
+			</div>
+		</header>
+		<div id="map"></div>
+	</div>
+	
+	<script>
+		const map_id = document.querySelector("div#map"); 
+	
+		var mapOptions = {
+				center: new naver.maps.LatLng(37.3595704, 127.105399),
+			    zoom: 5
+		};
+			
+		var map = new naver.maps.Map(map_id, mapOptions);
+	</script>
+	
+	<script>
+		const open = document.querySelector("a#food_title");
+		const openAll = document.querySelectorAll("a#food_title");
+		const close = document.querySelector("span.close");
+		const gwangju = document.querySelector("div.test");
+		   
+		close.disabled = true;
+		   
+		open.addEventListener("click", () => {
+		gwangju.style.opacity = 1;
+		gwangju.style.zIndex = "20";
+		close.disabled = false;
+		       
+		for ( var i = 0; i < openAll.length; i++ ) {
+			openAll[i].style.opacity = 0;
+			}
+		});
+	
+		close.addEventListener("click", () => {
+			gwangju.style.opacity = 0;
+			gwangju.style.zIndex = "0";
+		    close.disabled = true;
+		       
+		    for ( var i = 0; i < openAll.length; i++ ) {
+		    	openAll[i].style.opacity = 1;
+		    }
+		});
+	</script>
 
 	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 	<script type="text/javascript">
