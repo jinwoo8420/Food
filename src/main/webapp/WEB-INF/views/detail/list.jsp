@@ -93,7 +93,7 @@ div.food_list {
 	box-shadow: 1px 0.5px 1px 0.5px #ca75ad8f;
 	position: relative;
 	border: 2px solid #eeaaaa;
-	z-index: 10;
+	/* z-index: 10; */
 }
 
 a#kakaotalk-sharing-btn {
@@ -118,8 +118,8 @@ a#food_title:hover {
 
 div.test {
 	display: flex;
-	width: 30%;
-	height: 50%;
+	width: 70%;
+	height: 30%;
 	position: absolute;
 	align-items: center;
 	justify-content: center;
@@ -131,6 +131,12 @@ div.test {
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
+	z-index: -10;
+}
+
+span.close {
+	border-radius: 20px;
+	cursor: default;
 }
 </style>
 
@@ -142,9 +148,7 @@ div.test {
 	<div class="weather_api">
 		<div class="weather_list">
 
-			현재기온 ${WEATHER[0].fcstValue}℃ &nbsp&nbsp
-
-			${WEATHER[5].skyValue} &nbsp&nbsp
+			현재기온 ${WEATHER[0].fcstValue}℃ &nbsp&nbsp ${WEATHER[5].skyValue} &nbsp&nbsp
 
 			<c:if test="${WEATHER[5].fcstValue eq '1'}">
 				<img class="weather_img" src="${rootPath}/static/img/Sunny.png"> &nbsp&nbsp
@@ -159,7 +163,7 @@ div.test {
 	        </c:if>
 
 			강수상태 ${WEATHER[6].ptyValue} &nbsp&nbsp
-			
+
 			<c:if test="${WEATHER[6].fcstValue eq '1' || WEATHER[6].fcstValue eq '4'}">
 				<img class="weather_img" src="${rootPath}/static/img/Rain.png">
 			</c:if>
@@ -170,19 +174,7 @@ div.test {
 		</div>
 
 		<div class="dust_list">
-			<span style="font-size: 18px;">${DUST[0].dataTime}</span>
-			
-			<br>
-			
-				미세먼지(PM10) 농도 : ${DUST[0].pm10Value} &nbsp / &nbsp 미세먼지(PM2.5) 농도 : ${DUST[0].pm25Value} 
-			
-			<br> <br> 
-			
-			<span class="pm10">* pm10 기준 ~ 30 좋음 &nbsp /&nbsp 31 ~ 80 보통 &nbsp / &nbsp 81 ~ 150 나쁨 &nbsp / &nbsp 151 ~ 매우 나쁨</span> 
-			
-			<br>
-			
-			<span class="pm10">* pm2.5 기준 ~ 15 좋음 &nbsp / &nbsp 16 ~ 35 보통 &nbsp / &nbsp 36 ~ 75 나쁨 &nbsp / &nbsp 76 ~ 매우 나쁨</span>
+			<span style="font-size: 18px;">${DUST[0].dataTime}</span> <br> 미세먼지(PM10) 농도 : ${DUST[0].pm10Value} &nbsp / &nbsp 미세먼지(PM2.5) 농도 : ${DUST[0].pm25Value} <br> <br> <span class="pm10">* pm10 기준 ~ 30 좋음 &nbsp /&nbsp 31 ~ 80 보통 &nbsp / &nbsp 81 ~ 150 나쁨 &nbsp / &nbsp 151 ~ 매우 나쁨</span> <br> <span class="pm10">* pm2.5 기준 ~ 15 좋음 &nbsp / &nbsp 16 ~ 35 보통 &nbsp / &nbsp 36 ~ 75 나쁨 &nbsp / &nbsp 76 ~ 매우 나쁨</span>
 		</div>
 	</div>
 
@@ -216,62 +208,63 @@ div.test {
 
 				<p>주소 : ${food_list.address}</p>
 				<p>도로명 주소 : ${food_list.roadAddress}</p>
-				
-				<p>mapx : ${food_list.mapx}</p>
-				<p>mapy : ${food_list.mapy}</p>
+
+				<p id="mapx">${food_list.mapx}</p>
+				<p id="mapy">${food_list.mapy}</p>
 
 				<br>
 			</div>
+
+			<div class="test">
+				<header class="w3-container">
+					<div id="close_list">
+						<span class="close w3-button w3-display-topright" style="font-size: 20px; color: white;"> &times; </span>
+					</div>
+				</header>
+
+				<div id="map" style="width: 100%; height: 400px;"></div>
+
+				<button class="food_title" onclick="window.open('https://search.naver.com/search.naver?query=${DUST[0].sidoName} <c:out value='${food_list.title.replaceAll("\\\<.*?\\\>","")}' />')">검색</button>
+			</div>
 		</c:forEach>
 	</div>
-	
-	<div class="test">
-		<header class="w3-container">
-			<div id="close_list">
-				<span class="close w3-button w3-display-topright" style="font-size: 20px; color: white;"> &times; </span>
-			</div>
-		</header>
-		<div id="map"></div>
-	</div>
-	
-	<script>
-		const map_id = document.querySelector("div#map"); 
-	
-		var mapOptions = {
-				center: new naver.maps.LatLng(37.3595704, 127.105399),
-			    zoom: 5
-		};
-			
-		var map = new naver.maps.Map(map_id, mapOptions);
-	</script>
-	
+
 	<script>
 		const open = document.querySelector("a#food_title");
 		const openAll = document.querySelectorAll("a#food_title");
-		const close = document.querySelector("span.close");
-		const gwangju = document.querySelector("div.test");
-		   
+		const close = document.querySelectorAll("span.close");
+		const gwangju = document.querySelectorAll("div.test");
+		
+		const map_id = document.querySelectorAll("div#map");
+		const mapx = document.querySelectorAll("p#mapx");
+		const mapy = document.querySelectorAll("p#mapy");
+		
 		close.disabled = true;
-		   
-		open.addEventListener("click", () => {
-		gwangju.style.opacity = 1;
-		gwangju.style.zIndex = "20";
-		close.disabled = false;
-		       
-		for ( var i = 0; i < openAll.length; i++ ) {
-			openAll[i].style.opacity = 0;
-			}
-		});
-	
-		close.addEventListener("click", () => {
-			gwangju.style.opacity = 0;
-			gwangju.style.zIndex = "0";
-		    close.disabled = true;
-		       
-		    for ( var i = 0; i < openAll.length; i++ ) {
-		    	openAll[i].style.opacity = 1;
-		    }
-		});
+		
+		for (let i = 0; i < openAll.length; i++) {
+			openAll[i].addEventListener("click", () => {
+				gwangju[i].style.opacity = 1;
+				gwangju[i].style.zIndex = "10";
+				close[i].disabled = false;
+				
+				console.log(mapx[i].innerText, mapy[i].innerText);
+				
+				var mapOptions = {
+						center: new naver.maps.Point(288262, 107491),
+					    zoom: 10
+				};
+				
+				var map = new naver.maps.Map(map_id[i], mapOptions);
+			});
+		}
+		
+		for (let i = 0; i < close.length; i++) {
+			close[i].addEventListener("click", () => {
+				gwangju[i].style.opacity = 0;
+				gwangju[i].style.zIndex = "-10";
+			    close[i].disabled = true;
+			});
+		}
 	</script>
 
 	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>

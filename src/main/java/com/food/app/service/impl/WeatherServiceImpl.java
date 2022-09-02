@@ -130,12 +130,10 @@ public class WeatherServiceImpl implements WeatherService {
 
 		if (list.get(6).getFcstValue().equals("0")) {
 			list.get(6).setPtyValue("없음");
-		} else if (list.get(6).getFcstValue().equals("1")) {
+		} else if (list.get(6).getFcstValue().equals("1") || list.get(6).getFcstValue().equals("4")) {
 			list.get(6).setPtyValue("비");
 		} else if (list.get(6).getFcstValue().equals("2") || list.get(6).getFcstValue().equals("3")) {
 			list.get(6).setPtyValue("눈");
-		} else if (list.get(6).getFcstValue().equals("4")) {
-			list.get(6).setPtyValue("소나기");
 		}
 
 		int i = (int) (Math.random() * 12);
