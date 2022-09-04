@@ -13,7 +13,6 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link href="https://fonts.googleapis.com/css2?family=Hi+Melody&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
-<!-- <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=zh678sfagk"></script> -->
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=zh678sfagk&submodules=geocoder"></script>
 
 <style>
@@ -93,7 +92,6 @@ div.food_list {
 	box-shadow: 1px 0.5px 1px 0.5px #ca75ad8f;
 	position: relative;
 	border: 2px solid #eeaaaa;
-	/* z-index: 10; */
 }
 
 a#kakaotalk-sharing-btn {
@@ -116,10 +114,10 @@ a#food_title:hover {
 	border-bottom: 2px solid black;
 }
 
-div.test {
+div.map_view {
 	display: flex;
 	width: 70%;
-	height: 30%;
+	height: 45%;
 	position: absolute;
 	align-items: center;
 	justify-content: center;
@@ -137,6 +135,10 @@ div.test {
 span.close {
 	border-radius: 20px;
 	cursor: default;
+}
+
+p#mapx, p#mapy {
+	display: none;
 }
 </style>
 
@@ -192,8 +194,6 @@ span.close {
 		<c:forEach items="${LIST}" var="food_list">
 			<div>
 				<h5>
-					<%-- <b> <a id="food_title" target='_blank' href="https://search.naver.com/search.naver?query=${DUST[0].sidoName} <c:out value='${food_list.title.replaceAll("\\\<.*?\\\>","")}' />">${food_list.title}</a>
-					</b> --%>
 					<b> <a id="food_title">${food_list.title}</a>
 					</b>
 				</h5>
@@ -215,16 +215,16 @@ span.close {
 				<br>
 			</div>
 
-			<div class="test">
+			<div class="map_view">
 				<header class="w3-container">
 					<div id="close_list">
 						<span class="close w3-button w3-display-topright" style="font-size: 20px; color: white;"> &times; </span>
 					</div>
 				</header>
 
-				<div id="map" style="width: 100%; height: 400px;"></div>
+				<div id="map" style="width: 100%; height: 400px; margin-right: 30px;"></div>
 
-				<button class="food_title" onclick="window.open('https://search.naver.com/search.naver?query=${DUST[0].sidoName} <c:out value='${food_list.title.replaceAll("\\\<.*?\\\>","")}' />')">검색</button>
+				<button class="food_title w3-display-bottommiddle" onclick="window.open('https://search.naver.com/search.naver?query=${DUST[0].sidoName} <c:out value='${food_list.title.replaceAll("\\\<.*?\\\>","")}' />')">상세정보</button>
 			</div>
 		</c:forEach>
 	</div>
@@ -233,7 +233,7 @@ span.close {
 		const open = document.querySelector("a#food_title");
 		const openAll = document.querySelectorAll("a#food_title");
 		const close = document.querySelectorAll("span.close");
-		const gwangju = document.querySelectorAll("div.test");
+		const map_view = document.querySelectorAll("div.map_view");
 		
 		const map_id = document.querySelectorAll("div#map");
 		const mapx = document.querySelectorAll("p#mapx");
@@ -243,25 +243,34 @@ span.close {
 		
 		for (let i = 0; i < openAll.length; i++) {
 			openAll[i].addEventListener("click", () => {
-				gwangju[i].style.opacity = 1;
-				gwangju[i].style.zIndex = "10";
+				map_view[i].style.opacity = 1;
+				map_view[i].style.zIndex = "10";
 				close[i].disabled = false;
 				
-				console.log(mapx[i].innerText, mapy[i].innerText);
+				console.log(mapx[i].innerText,mapy[i].innerText);
 				
-				var mapOptions = {
-						center: new naver.maps.Point(288262, 107491),
-					    zoom: 10
-				};
+				var tm128 = new naver.maps.Point(mapx[i].innerText, mapy[i].innerText);
+				var utmk = naver.maps.TransCoord.fromTM128ToUTMK(tm128);
+				var latlng = naver.maps.TransCoord.fromUTMKToLatLng(utmk);
+
+				console.log(latlng.toString());
 				
-				var map = new naver.maps.Map(map_id[i], mapOptions);
+				var map = new naver.maps.Map(map_id[i], {
+				    center: latlng,
+				    zoom: 15
+				});
+
+				var marker = new naver.maps.Marker({
+				    position: latlng,
+				    map: map
+				});
 			});
 		}
 		
 		for (let i = 0; i < close.length; i++) {
 			close[i].addEventListener("click", () => {
-				gwangju[i].style.opacity = 0;
-				gwangju[i].style.zIndex = "-10";
+				map_view[i].style.opacity = 0;
+				map_view[i].style.zIndex = "-10";
 			    close[i].disabled = true;
 			});
 		}

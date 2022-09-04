@@ -115,48 +115,5 @@ hr {
 		<button class="open btn jeonbuk" data-mapx="69" data-mapy="89" data-dust="전북" type="button">전북</button>
 	</div>
 
-	<!-- <div class="list_group gwangju">
-		<header class="w3-container">
-			<div id="close_list">
-				<span class="close w3-button w3-display-topright" style="font-size: 20px; color: white;"> &times; </span>
-			</div>
-		</header>
-
-		<button class="list_group_item btn" data-mapx="59" data-mapy="74" data-dust="광주" type="button">화정동</button>
-		<button class="list_group_item btn" data-mapx="59" data-mapy="74" data-dust="광주" type="button">풍암동</button>
-		<button class="list_group_item btn" data-mapx="60" data-mapy="74" data-dust="광주" type="button">동명동</button>
-		<button class="list_group_item btn" data-mapx="59" data-mapy="73" data-dust="광주" type="button">봉선동</button>
-		<button class="list_group_item btn" data-mapx="60" data-mapy="75" data-dust="광주" type="button">각화동</button>
-	</div> -->
-
-	<script>
-   const open = document.querySelector("button.open");
-   const openAll = document.querySelectorAll(".open");
-   const close = document.querySelector("span.close");
-   const gwangju = document.querySelector("div.gwangju");
-   
-   close.disabled = true;
-   
-   open.addEventListener("click", () => {
-	  gwangju.style.opacity = 1;
-	  gwangju.style.zIndex = "20";
-      close.disabled = false;
-       
-       for ( var i = 0; i < openAll.length; i++ ) {
-          openAll[i].style.opacity = 0;
-       }
-     });
-
-   close.addEventListener("click", () => {
-	   gwangju.style.opacity = 0;
-	   gwangju.style.zIndex = "0";
-       close.disabled = true;
-       
-       for ( var i = 0; i < openAll.length; i++ ) {
-           openAll[i].style.opacity = 1;
-       }
-     });
-   </script>
-
 </body>
 </html>
