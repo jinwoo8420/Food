@@ -7,7 +7,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -18,9 +17,6 @@ import com.food.app.service.DustService;
 import com.food.app.service.NaverService;
 import com.food.app.service.WeatherService;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 @Controller
 @RequestMapping(value = "/detail")
 public class DetailController {
@@ -36,11 +32,6 @@ public class DetailController {
 
 	@Autowired
 	private NaverService naverService;
-
-	@GetMapping("/error")
-	public String error() {
-		return "error/error";
-	}
 
 	@RequestMapping(value = "/{mapx},{mapy},{dust}/list")
 	public String list(@PathVariable("mapx") String mapx, @PathVariable("mapy") String mapy,
