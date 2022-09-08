@@ -66,29 +66,31 @@ public class WeatherServiceImpl implements WeatherService {
 		} else if (nowTime.getHour() == 23 || nowTime.getHour() == 00 || nowTime.getHour() == 01) {
 			time = "2300";
 		}
-
-//		System.out.println("weather 기준시간 : " + time);
-
-		weather_url += ("?" + URLEncoder.encode("serviceKey", "UTF-8") + "=" + KeyConfig.KEY_1);
-		weather_url += ("&" + URLEncoder.encode("numOfRows", "UTF-8") + "="
-				+ URLEncoder.encode("10", "UTF-8")); /*한 페이지 결과 수*/
-
-		if (nowTime.getHour() == 00 || nowTime.getHour() == 01) {
-			weather_url += ("&" + URLEncoder.encode("base_date", "UTF-8") + "=" + URLEncoder.encode(y_date, "UTF-8"));
+		
+		weather_url += "?" + URLEncoder.encode("serviceKey", "UTF-8");
+		weather_url += "=" + KeyConfig.KEY_1;
+		weather_url += "&" + URLEncoder.encode("numOfRows", "UTF-8"); // 결과 수
+		weather_url += "=10";
+		
+		if (nowTime.getHour() == 00 || nowTime.getHour() == 01) { // 현 시간이 00시 이거나 01시 일 때
+			weather_url += "&" + URLEncoder.encode("base_date", "UTF-8");
+			weather_url += "=" + URLEncoder.encode(y_date, "UTF-8"); // 하루 전 날짜
 		} else {
-			weather_url += ("&" + URLEncoder.encode("base_date", "UTF-8") + "="
-					+ URLEncoder.encode(dateForm.format(date), "UTF-8")); // 기준 날짜
+			weather_url += "&" + URLEncoder.encode("base_date", "UTF-8");
+			weather_url += "=" + URLEncoder.encode(dateForm.format(date), "UTF-8"); // 현재 날짜
 		}
-
-		weather_url += ("&" + URLEncoder.encode("base_time", "UTF-8") + "=" + URLEncoder.encode(time, "UTF-8"));
-		weather_url += ("&" + URLEncoder.encode("nx", "UTF-8") + "=" + URLEncoder.encode(mapX, "UTF-8")); // x 좌표
-		weather_url += ("&" + URLEncoder.encode("ny", "UTF-8") + "=" + URLEncoder.encode(mapY, "UTF-8")); // y 좌표
+		
+		weather_url += "&" + URLEncoder.encode("base_time", "UTF-8");
+		weather_url += "=" + URLEncoder.encode(time, "UTF-8");
+		weather_url += "&" + URLEncoder.encode("nx", "UTF-8");
+		weather_url += "=" + URLEncoder.encode(mapX, "UTF-8");
+		weather_url += "&" + URLEncoder.encode("ny", "UTF-8");
+		weather_url += "=" + URLEncoder.encode(mapX, "UTF-8");
 
 		URL url = new URL(weather_url.toString());
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 		conn.setRequestMethod("GET");
 		conn.setRequestProperty("Content-type", "application/json");
-//		System.out.println("Response code: " + conn.getResponseCode());
 		BufferedReader rd;
 		if (conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
 			rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));

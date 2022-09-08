@@ -57,7 +57,8 @@ public class DetailController {
 		if (weather.get(6).getPtyValue().equals("비")) {
 			model.addAttribute("LIST", naverRainList);
 			model.addAttribute("FOOD", weather.get(6).getRainFood());
-		}		
+		}
+		
 		// 미세먼지 나쁨 이상
 		else if (getDust.get(0).getPm10Grade().equals("나쁨") || getDust.get(0).getPm10Grade().equals("매우 나쁨")) {
 			model.addAttribute("LIST", naverDustList);

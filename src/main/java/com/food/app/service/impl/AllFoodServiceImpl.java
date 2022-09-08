@@ -2,7 +2,6 @@ package com.food.app.service.impl;
 
 import org.springframework.stereotype.Service;
 
-import com.food.app.model.FoodVO;
 import com.food.app.service.AllFoodService;
 
 @Service
@@ -15,10 +14,7 @@ public class AllFoodServiceImpl implements AllFoodService {
 		String[] food = { "부대찌개", "아구찜", "해물탕", "칼국수", "수제비", "짬뽕", "우동", "치킨", "국밥", "김치전", "두부김치", "파전", "콩나물국밥",
 				"고등어", "굴", "쌀국수", "마라탕" };
 		
-		FoodVO foodVO = FoodVO.builder().allFood(food[i]).build();
-		
-		
-		return foodVO.getAllFood();
+		return food[i];
 	}
 
 }

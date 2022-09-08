@@ -247,13 +247,9 @@ p#mapx, p#mapy {
 				map_view[i].style.zIndex = "10";
 				close[i].disabled = false;
 				
-				console.log(mapx[i].innerText,mapy[i].innerText);
-				
 				var tm128 = new naver.maps.Point(mapx[i].innerText, mapy[i].innerText);
 				var utmk = naver.maps.TransCoord.fromTM128ToUTMK(tm128);
 				var latlng = naver.maps.TransCoord.fromUTMKToLatLng(utmk);
-
-				console.log(latlng.toString());
 				
 				var map = new naver.maps.Map(map_id[i], {
 				    center: latlng,

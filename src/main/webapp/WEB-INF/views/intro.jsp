@@ -45,22 +45,6 @@ body {
 	background-color: #e7dcdc;
 }
 
-/* div.list_group {
-	display: flex;
-	width: 30%;
-	height: 50%;
-	position: absolute;
-	align-items: center;
-	justify-content: center;
-	border-radius: 5%;
-	background-color: #ccd2d2;
-	border: 2px solid #eeaaaa;
-	opacity: 0;
-	transition: 0.5s;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-} */
 span.close {
 	border-radius: 20px;
 	cursor: default;
