@@ -280,7 +280,7 @@ p#mapx, p#mapy {
 				.createDefaultButton({
 					container : "#kakaotalk-sharing-btn",
 					objectType : "list",
-					headerTitle : 'FOOD',
+					headerTitle : '${DUST[0].sidoName} ${FOOD} 맛집',
 					headerLink : {
 						mobileWebUrl : '',
 						webUrl : '',
